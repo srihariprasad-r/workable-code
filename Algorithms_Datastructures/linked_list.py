@@ -74,10 +74,11 @@ class linkedList:
         cur_node = self.head
         prev_node = None
         while cur_node:
-            next_node = cur_node.next
+            next_node = cur_node.next            
+            cur_node.next = prev_node
             prev_node = cur_node
             cur_node = next_node
-        self.head = prev_node
+        self.head = prev_node                
 
 
 
@@ -91,4 +92,4 @@ sll.insert_after_node(3,8)
 #sll.delete_a_node(5)
 #sll.print_list()
 sll.reverse_linked_list()
-#sll.print_list()
+sll.print_list()

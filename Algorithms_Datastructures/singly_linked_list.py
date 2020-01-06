@@ -111,12 +111,12 @@ class linkedList:
                 index_node.next = node2
                 index_node = node2
                 node2 = index_node.next   
-
+        
         if node1 is None:
             index_node.next = node2
         elif node2 is None:
             index_node.next = node1 
-
+        
         return new_head                            
 
 
@@ -125,15 +125,15 @@ sll1 = linkedList()
 sll2 = linkedList()
 
 #add elements to first linked list object
+sll1.append(1)
 sll1.append(4)
 sll1.append(5)
 sll1.append(6)
-sll1.prepend(3)
 
 
 #add elements to second linked list object
-sll2.append(1)
 sll2.append(2)
+sll2.append(3)
 sll2.append(7)
 sll2.append(8)
 

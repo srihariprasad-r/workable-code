@@ -70,7 +70,7 @@ class linkedList:
                     prev_node = cur_node
                     cur_node = cur_node.next
 
-        
+
     def reverse_linked_list(self):
         cur_node = self.head
         prev_node = None
@@ -82,15 +82,66 @@ class linkedList:
         self.head = prev_node                
 
 
+    def merge_two_list(self, list2):
+        node1 = self.head
+        node2 = list2.head
+        index_node = None
 
-sll = linkedList()        
-sll.append(3)
-sll.append(5)
-sll.append(6)
-sll.prepend(4)
-sll.insert_after_node(3,8)
+        if node1 is None:
+            return node2
+        elif node2 is None:
+            return node1
+
+        if node1 and node2:
+            if node1.data <= node2.data:
+                index_node = node1
+                node1 = index_node.next     #moved the node to point to next element from head
+            else:
+                index_node = node2    
+                node2 = index_node.next
+            
+            new_head = index_node   #set head to newly added node
+
+        while node1 and node2:
+            if node1.data <= node2.data:
+                index_node.next = node1
+                index_node = node1
+                node1 = index_node.next
+            else:
+                index_node.next = node2
+                index_node = node2
+                node2 = index_node.next   
+
+        if node1 is None:
+            index_node.next = node2
+        elif node2 is None:
+            index_node.next = node1 
+
+        return new_head                            
+
+
+
+sll1 = linkedList()        
+sll2 = linkedList()
+
+#add elements to first linked list object
+sll1.append(4)
+sll1.append(5)
+sll1.append(6)
+sll1.prepend(3)
+
+
+#add elements to second linked list object
+sll2.append(1)
+sll2.append(2)
+sll2.append(7)
+sll2.append(8)
+
+sll1.merge_two_list(sll2)                           #need validation
+sll1.print_list()
+#sll.insert_after_node(3,8)                         #inserts node after node that is passed
 #sll.print_list()
-#sll.delete_a_node(5)
+#sll.delete_a_node(5)                               #removes a node
 #sll.print_list()
-sll.reverse_linked_list()
-sll.print_list()
+#sll.reverse_linked_list()                          #reverses linked list
+#sll.print_list()

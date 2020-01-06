@@ -69,6 +69,7 @@ class linkedList:
                 else:
                     prev_node = cur_node
                     cur_node = cur_node.next
+
         
     def reverse_linked_list(self):
         cur_node = self.head
@@ -77,7 +78,7 @@ class linkedList:
             next_node = cur_node.next            
             cur_node.next = prev_node
             prev_node = cur_node
-            cur_node = next_node
+            cur_node = next_node            
         self.head = prev_node                
 
 

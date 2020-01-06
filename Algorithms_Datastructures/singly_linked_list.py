@@ -21,6 +21,17 @@ class linkedList:
             return find_node.data , find_node.next
 
 
+    def length_list(self):
+        cur_node = self.head
+        total = 0
+        while cur_node:
+            cur_node = cur_node.next
+            total += 1
+        
+        return total
+
+
+
     def prepend(self, data):
         new_node = Node(data)
         new_node.next = self.head
@@ -137,8 +148,9 @@ sll2.append(3)
 sll2.append(7)
 sll2.append(8)
 
-sll1.merge_two_list(sll2)                           #need validation
-sll1.print_list()
+print(sll1.length_list())
+#sll1.merge_two_list(sll2)                           
+#sll1.print_list()
 #sll.insert_after_node(3,8)                         #inserts node after node that is passed
 #sll.print_list()
 #sll.delete_a_node(5)                               #removes a node

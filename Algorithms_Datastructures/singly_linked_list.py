@@ -16,9 +16,12 @@ class linkedList:
 
 
     def find_next_node(self, data):
-        find_node = self.head                
-        if find_node.next.data == data:
-            return find_node.data , find_node.next
+        find_node = self.head    
+        while find_node:            
+            if find_node.next.data == data:            
+                return find_node.data , find_node.next
+            else:
+                find_node = find_node.next
 
 
     def length_list(self):
@@ -29,7 +32,6 @@ class linkedList:
             total += 1
         
         return total
-
 
 
     def prepend(self, data):
@@ -130,6 +132,36 @@ class linkedList:
         
         return new_head                            
 
+    def node_swap(self,swap_element, to_element):        
+        if swap_element == to_element:
+            return
+    
+        prev_node1 = None
+        cur_node1 = self.head            
+
+        while cur_node1 and cur_node1.data != swap_element:
+            prev_node1 = cur_node1
+            cur_node1 = cur_node1.next
+
+        prev_node2 = None
+        cur_node2 = self.head            
+
+        while cur_node2 and cur_node2.data != to_element:
+            prev_node2 = cur_node2
+            cur_node2 = cur_node2.next
+        
+        if prev_node1:
+            prev_node1.next = cur_node2
+        else:
+            self.head = cur_node2
+        if prev_node2:
+            prev_node2.next = cur_node1
+        else:
+            self.head  = cur_node1
+        
+        cur_node1.next, cur_node2.next = cur_node2.next, cur_node1.next
+        
+
 
 
 sll1 = linkedList()        
@@ -148,12 +180,14 @@ sll2.append(3)
 sll2.append(7)
 sll2.append(8)
 
-print(sll1.length_list())
+#sll1.length_list()                                 #find length of linked list
 #sll1.merge_two_list(sll2)                           
 #sll1.print_list()
-#sll.insert_after_node(3,8)                         #inserts node after node that is passed
-#sll.print_list()
-#sll.delete_a_node(5)                               #removes a node
-#sll.print_list()
-#sll.reverse_linked_list()                          #reverses linked list
-#sll.print_list()
+#sll1.insert_after_node(3,8)                         #inserts node after node that is passed
+#sll1.print_list()
+#sll1.delete_a_node(5)                               #removes a node
+#sll1.print_list()
+#sll1.reverse_linked_list()                          #reverses linked list
+#sll1.print_list()
+sll2.node_swap(7,3)
+sll2.print_list()

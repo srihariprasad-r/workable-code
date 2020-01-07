@@ -133,7 +133,8 @@ class linkedList:
         return new_head                            
 
     def node_swap(self,swap_element, to_element):        
-        if swap_element == to_element:
+        
+        if swap_element == to_element:  #swap doesn't occur when both elements are same
             return
     
         prev_node1 = None
@@ -153,17 +154,15 @@ class linkedList:
         if prev_node1:
             prev_node1.next = cur_node2
         else:
-            self.head = cur_node2
+            self.head = cur_node2                               #when element being swapped is head
         if prev_node2:
             prev_node2.next = cur_node1
         else:
             self.head  = cur_node1
         
-        cur_node1.next, cur_node2.next = cur_node2.next, cur_node1.next
+        cur_node1.next, cur_node2.next = cur_node2.next, cur_node1.next     #switch pointers for current node
+
         
-
-
-
 sll1 = linkedList()        
 sll2 = linkedList()
 
@@ -189,5 +188,5 @@ sll2.append(8)
 #sll1.print_list()
 #sll1.reverse_linked_list()                          #reverses linked list
 #sll1.print_list()
-sll2.node_swap(7,3)
+sll2.node_swap(7,3)                                  # node swap 
 sll2.print_list()

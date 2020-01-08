@@ -176,19 +176,20 @@ class linkedList:
             pointer1 =  pointer1.next
             pointer2 = pointer2.next
             count += 1
-
-        if pointer2 and pointer1:
-            pointer2 = pointer1.next
-
-        if pointer2:
-            #print("current node:", cur_node.data)
-            pointer2.next = cur_node
         
-        prev_node.next = None
+        pointer1 = prev_node                # as we are in next node
 
-        #print("pointer1 position", pointer1.data)            
-        #print("pointer2 position", pointer2.next.data) 
+        while pointer2:
+            prev_node = pointer2
+            pointer2 = pointer2.next
+        
+        pointer2 = prev_node
 
+        pointer2.next = self.head
+        self.head = pointer1.next
+        pointer1.next = None
+        
+        #prev_node.next = None
 
         
 sll1 = linkedList()        
@@ -218,5 +219,10 @@ sll2.append(8)
 #sll1.print_list()
 #sll2.node_swap(7,3)                                 # node swap 
 #sll2.print_list()
-sll1.rotate_node(2)                                 # working version
+print("before rotating the list")
+print("=======================")
+sll1.print_list()
+sll1.rotate_node(2)                                 # rotating list based on position of a element
+print("after rotating the list")
+print("=======================")
 sll1.print_list()

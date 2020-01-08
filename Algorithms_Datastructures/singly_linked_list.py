@@ -149,18 +149,46 @@ class linkedList:
 
         while cur_node2 and cur_node2.data != to_element:
             prev_node2 = cur_node2
-            cur_node2 = cur_node2.next
+            cur_node2 = cur_node2.next            
         
         if prev_node1:
             prev_node1.next = cur_node2
         else:
             self.head = cur_node2                               #when element being swapped is head
-        if prev_node2:
+        if prev_node2:                     
             prev_node2.next = cur_node1
         else:
             self.head  = cur_node1
         
         cur_node1.next, cur_node2.next = cur_node2.next, cur_node1.next     #switch pointers for current node
+    
+    def rotate_node(self, pos):
+        cur_node = self.head
+        prev_node = None
+
+        pointer1 = self.head
+        pointer2 = self.head
+
+        count = 0
+
+        while pointer1 and count < pos:
+            prev_node = pointer1
+            pointer1 =  pointer1.next
+            pointer2 = pointer2.next
+            count += 1
+
+        if pointer2 and pointer1:
+            pointer2 = pointer1.next
+
+        if pointer2:
+            #print("current node:", cur_node.data)
+            pointer2.next = cur_node
+        
+        prev_node.next = None
+
+        #print("pointer1 position", pointer1.data)            
+        #print("pointer2 position", pointer2.next.data) 
+
 
         
 sll1 = linkedList()        
@@ -188,5 +216,7 @@ sll2.append(8)
 #sll1.print_list()
 #sll1.reverse_linked_list()                          #reverses linked list
 #sll1.print_list()
-sll2.node_swap(7,3)                                  # node swap 
-sll2.print_list()
+#sll2.node_swap(7,3)                                 # node swap 
+#sll2.print_list()
+sll1.rotate_node(2)                                 # working version
+sll1.print_list()

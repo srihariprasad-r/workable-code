@@ -191,7 +191,27 @@ class linkedList:
         
         #prev_node.next = None
 
+    def tail_to_head(self):
+        pointer1 = self.head
+        pointer2 = self.head
         
+        prev_node = None
+        next_node = None
+        
+        while pointer1 and pointer2:
+            next_node = prev_node                    
+            prev_node = pointer1
+            pointer1 = pointer1.next
+
+        pointer1 = prev_node
+        pointer2 = next_node
+
+        pointer1.next = self.head        
+        pointer2.next = None                # disonnecting last but one node from link
+
+        self.head = pointer1                # moving the head to last node
+
+
 sll1 = linkedList()        
 sll2 = linkedList()
 
@@ -219,10 +239,12 @@ sll2.append(8)
 #sll1.print_list()
 #sll2.node_swap(7,3)                                 # node swap 
 #sll2.print_list()
-print("before rotating the list")
-print("=======================")
-sll1.print_list()
-sll1.rotate_node(2)                                 # rotating list based on position of a element
-print("after rotating the list")
-print("=======================")
+#print("before rotating the list")
+#print("=======================")
+#sll1.print_list()
+#sll1.rotate_node(2)                                 # rotating list based on position of a element
+#print("after rotating the list")
+#print("=======================")
+#sll1.print_list()
+sll1.tail_to_head()                                 # move tail as head in linked list
 sll1.print_list()

@@ -2,7 +2,7 @@ class Node:
     "Node is a class which takes data and pointer to next node instance as parameters and has head pointing to first node"
     def __init__(self, data):
         self.data = data
-        self.next = 
+        self.next = None 
     
    
 class linkedList:

@@ -60,6 +60,19 @@ class doubly_linked_list:
                 new_node.next = next_node
                 new_node.prev = cur_node
             cur_node = cur_node.next
+    
+    def add_before_node(self, key, data):
+        cur_node = self.head
+        while cur_node:
+            if cur_node.next is None and cur_node.data == key:
+                self.prepend(data)
+            elif cur_node.data == key:
+                new_node = Node(data)
+                prev_node = cur_node.prev
+                new_node.next = cur_node
+                new_node.prev = prev_node
+                prev_node.next = new_node
+            cur_node = cur_node.next
                                         
 
 dll = doubly_linked_list()
@@ -72,5 +85,7 @@ dll.append(4)
 dll.prepend(5)
 dll.prepend(9)
 #dll.print_linked_list()
-dll.add_after_node(1,30)
+#dll.add_after_node(1,30)           # add a node instance after specific list element
+#dll.print_linked_list()
+dll.add_before_node(1,30)           # add a node instance before specific list element
 dll.print_linked_list()

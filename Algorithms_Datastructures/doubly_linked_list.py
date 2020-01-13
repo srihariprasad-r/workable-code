@@ -60,7 +60,8 @@ class doubly_linked_list:
                 new_node.next = next_node
                 new_node.prev = cur_node
             cur_node = cur_node.next
-    
+
+
     def add_before_node(self, key, data):
         cur_node = self.head
         while cur_node:
@@ -73,7 +74,21 @@ class doubly_linked_list:
                 new_node.prev = prev_node
                 prev_node.next = new_node
             cur_node = cur_node.next
-                                        
+
+    
+    def delete_a_node(self, key):
+        cur_node = self.head
+        prev_node = Node(key)
+        next_node = Node(key)
+        while cur_node:
+            if cur_node.data == key:
+                prev_node = cur_node.prev                
+                next_node = cur_node.next                
+            cur_node = cur_node.next
+        
+        next_node.prev = prev_node        
+        prev_node.next = next_node
+
 
 dll = doubly_linked_list()
 dll.append(1)
@@ -87,5 +102,7 @@ dll.prepend(9)
 #dll.print_linked_list()
 #dll.add_after_node(1,30)           # add a node instance after specific list element
 #dll.print_linked_list()
-dll.add_before_node(1,30)           # add a node instance before specific list element
+#dll.add_before_node(1,30)          # add a node instance before specific list element
+#dll.print_linked_list()
+dll.delete_a_node(30)               # added function to remove element from doubly linked list
 dll.print_linked_list()

@@ -19,6 +19,7 @@ class Node:
                     return self.rightChild.insert(data)
                 else:
                     self.rightChild = Node(data)
+                    self.new_variable = None
                     return True
 
     def find(self, data):

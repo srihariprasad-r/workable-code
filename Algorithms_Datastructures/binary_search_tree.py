@@ -3,7 +3,7 @@ class Node:
         self.value = val
         self.leftChild = None
         self.rightChild = None        
-        self.new_variable = None    
+        self.new_variable = 65    
     def insert(self, data):
         if self.value == data:
             return False

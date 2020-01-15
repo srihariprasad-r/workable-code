@@ -3,7 +3,7 @@ class Node:
         self.value = val
         self.leftChild = None
         self.rightChild = None        
-        self.new_variable = None    
+        self.new_variable = 55    
     def insert(self, data):
         if self.value == data:
             return False
@@ -77,6 +77,6 @@ bst = Tree()
 print(bst.insert(10))
 print(bst.insert(15))
 print(bst.insert(8))
-print(bst.insert(6))
-print(bst.lefttraversal())
+#print(bst.insert(6))
+#print(bst.lefttraversal())
 print(bst.righttraversal())

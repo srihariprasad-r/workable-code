@@ -49,7 +49,33 @@ class Graph:
             if k == data:
                 return v
 
-            
+    def breadth_first_search(self):
+        start_value = min(k for k in self.graph.keys() if k == 3)
+        print(start_value)
+        self.frontier.append(start_value)     
+        while len(self.frontier) > 0:
+            self.current = self.frontier[0]    
+            print("current value:", self.current)           
+            node_edges = self.print_node_edges(self.frontier[0])        
+            while node_edges['left']:
+                self.frontier.append(node_edges['left'])                    
+                break
+            while node_edges['right']:
+                self.frontier.append(node_edges['right'])                   
+                break                 
+            while node_edges['top']:
+                self.frontier.append(node_edges['top'])                   
+                break
+            while node_edges['bottom']:
+                self.frontier.append(node_edges['bottom'])                                                           
+                break
+            print("frontier:", self.frontier)
+            self.visited.append(self.current)
+            print(self.visited)
+            self.frontier.remove(self.current)
+            print("after removal:", self.frontier)
+            break
+        
 g = Graph()
 g.add_node_graph(1)
 g.add_node_graph(2, left = 1 , right = 3 )
@@ -62,6 +88,6 @@ g.add_node_graph(8, top = 7 ,  left = 9, right = 10)
 g.add_node_graph(9, right = 8)
 g.add_node_graph(10, left = 8)
 print(g.print_node_edges(3))
-#g.return_edges(3)
+g.breadth_first_search()
 
 

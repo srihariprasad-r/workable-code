@@ -49,27 +49,27 @@ class Graph:
     def print_node_edges(self, data):
         for k,v in self.graph.items():
             if k == data:
-                return v
+                return v                
 
     def breadth_first_search(self):
         start_value = 1        
         self.frontier.append(start_value)     
         while self.frontier:
-            self.current = self.frontier[0]                     
+            self.current = self.frontier[0]                   
             node_edges = self.print_node_edges(self.frontier[0])        
             while node_edges['left'] and node_edges['left'] not in self.visited:
-                self.frontier.append(node_edges['left'])                    
+                self.frontier.append(node_edges['left'])                              
                 break
             while node_edges['right'] and node_edges['right'] not in self.visited:
-                self.frontier.append(node_edges['right'])                   
+                self.frontier.append(node_edges['right'])                                                    
                 break                 
             while node_edges['top'] and node_edges['top'] not in self.visited:
-                self.frontier.append(node_edges['top'])                   
+                self.frontier.append(node_edges['top'])                                                  
                 break
             while node_edges['bottom'] and node_edges['bottom'] not in self.visited:
-                self.frontier.append(node_edges['bottom'])                                                           
+                self.frontier.append(node_edges['bottom'])                                                                                             
                 break                                           
-            self.visited.append(self.current)                     
+            self.visited.append(self.current)                          
             self.frontier.remove(self.current)
         return self.visited
 
@@ -84,7 +84,8 @@ g.add_node_graph(7, bottom = 8 ,  top = 3)
 g.add_node_graph(8, top = 7 ,  left = 9, right = 10)
 g.add_node_graph(9, right = 8)
 g.add_node_graph(10, left = 8)
-g.print_node_edges(3)
-print(g.breadth_first_search())
+print(g.print_node_edges(3))
+g.breadth_first_search()
+
 
 

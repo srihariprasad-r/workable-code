@@ -50,18 +50,21 @@ class Graph:
     def print_node_edges(self, data):
         for k,v in self.graph.items():
             if k == data:
-                self.parent = k
-                for _ , n in v.items():
-                    if n is not None:
-                        self.backtrack[self.parent] = n   
-                return self.backtrack, v    
+                return v    
+
+    def find_parent_node(self, data):
+        for k,v in self.graph.items():
+            for i in v.values():   
+                if i is not None and i not in self.backtrack:                           
+                    self.backtrack.setdefault(k,[]).append(i)
+        return self.backtrack[data]
 
     def bfs_traversal(self):
         start_value = 1        
         self.frontier.append(start_value)     
         while self.frontier:
             self.current = self.frontier[0]                                           
-            self.backtrack, node_edges = self.print_node_edges(self.frontier[0])                  
+            node_edges = self.print_node_edges(self.frontier[0])               
             while node_edges['left'] and node_edges['left'] not in self.visited:
                 self.frontier.append(node_edges['left'])                                          
                 break
@@ -76,8 +79,6 @@ class Graph:
                 break                
             self.visited.append(self.current)                                             
             self.frontier.remove(self.current)
-        for a, b in self.backtrack.items():
-            print(b, a)
         return self.visited
 
 g = Graph()
@@ -92,7 +93,8 @@ g.add_node_graph(8, top = 7 ,  left = 9, right = 10)
 g.add_node_graph(9, right = 8)
 g.add_node_graph(10, left = 8)
 #print(g.print_node_edges(5))
-print(g.bfs_traversal())
+g.bfs_traversal()
+g.find_parent_node(3)
 
 
 

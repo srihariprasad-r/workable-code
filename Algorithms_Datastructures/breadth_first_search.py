@@ -37,7 +37,7 @@ class Graph:
         self.visited = []
         self.current = None
         self.frontier = []
-        self.parent = None
+        self.parent = {}
         self.backtrack = {}
         self.distance = 0
 
@@ -56,15 +56,19 @@ class Graph:
         for k,v in self.graph.items():
             for i in v.values():   
                 if i is not None and i not in self.backtrack:                           
-                    self.backtrack.setdefault(k,[]).append(i)
-        return self.backtrack[data]
+                    self.backtrack.setdefault(k,[]).append(i)        
+
+        for k, v in self.backtrack.items():
+            for i in v:
+                self.parent[i] = k                    
+        return self.parent
 
     def bfs_traversal(self):
         start_value = 1        
         self.frontier.append(start_value)     
         while self.frontier:
             self.current = self.frontier[0]                                           
-            node_edges = self.print_node_edges(self.frontier[0])               
+            node_edges = self.print_node_edges(self.frontier[0])                           
             while node_edges['left'] and node_edges['left'] not in self.visited:
                 self.frontier.append(node_edges['left'])                                          
                 break

@@ -65,7 +65,7 @@ class Graph:
                 self.parent[i] = k            
         return self.parent
 
-    def shortest_path(self, start, goal):                           #to be reviewed
+    def shortest_path(self, start, goal):
         self.queue = [goal]              
         while self.queue:            
             vertex = self.queue.pop(0)         
@@ -74,9 +74,11 @@ class Graph:
                     if parent == vertex:                                          
                         self.queue.append(node)                
                         self.distance += 1         
-                        self.traversed.append(vertex)                                                                                                   
-        print(self.distance)
-        print(self.traversed)
+                        self.traversed.append(vertex)  
+            else:
+                self.distance += 1
+                self.traversed.append(vertex)                           #added start element as node has reached traversal                                                                                             
+        return self.traversed
 
     def bfs_traversal(self):
         start_value = 1        
@@ -114,7 +116,7 @@ g.add_node_graph(10, left = 8)
 #print(g.print_node_edges(5))
 g.bfs_traversal()
 g.build_parent_node_mapping()
-g.shortest_path(2,5)
+print(g.shortest_path(1,10))
 
 
 

@@ -1,4 +1,7 @@
 """
+        Graph Algorithm: Breadth First search
+
+Puzzle:
 x x x x x  x
 x x x 6 x  x
 x x x 5 x  x 
@@ -6,7 +9,10 @@ x 1 2 3 4  x
 x x x 7 x  x
 x x 9 8 10 x  
 x x x x x  x
+
 """
+
+
 
 class Node:
     def __init__(self, data):

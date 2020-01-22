@@ -35,6 +35,7 @@ class Graph:
         self.graph = {}        
         self.nodes = {}
         self.visited = []
+        self.traversed = []
         self.current = None
         self.frontier = []
         self.parent = {}
@@ -52,16 +53,30 @@ class Graph:
             if k == data:
                 return v    
 
-    def find_parent_node(self, data):
+    def build_parent_node_mapping(self):
         for k,v in self.graph.items():
             for i in v.values():   
                 if i is not None and i not in self.backtrack:                           
                     self.backtrack.setdefault(k,[]).append(i)        
 
         for k, v in self.backtrack.items():
+            self.parent[1] = 1                  #added node 1 as it no parent
             for i in v:
-                self.parent[i] = k                    
+                self.parent[i] = k            
         return self.parent
+
+    def shortest_path(self, start, goal):                           #to be reviewed
+        self.queue = [goal]              
+        while self.queue:            
+            vertex = self.queue.pop(0)         
+            if vertex != start:                        
+                for parent , node in self.parent.items():                     
+                    if parent == vertex:                                          
+                        self.queue.append(node)                
+                        self.distance += 1         
+                        self.traversed.append(vertex)                                                                                                   
+        print(self.distance)
+        print(self.traversed)
 
     def bfs_traversal(self):
         start_value = 1        
@@ -98,7 +113,8 @@ g.add_node_graph(9, right = 8)
 g.add_node_graph(10, left = 8)
 #print(g.print_node_edges(5))
 g.bfs_traversal()
-g.find_parent_node(3)
+g.build_parent_node_mapping()
+g.shortest_path(2,5)
 
 
 

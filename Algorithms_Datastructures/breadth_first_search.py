@@ -43,6 +43,7 @@ class Graph:
         self.distance = 0
 
     def add_node_graph(self, data, top = None, bottom = None, left = None, right = None):
+        """This method appends all new elements to graph which are instances of Node class""""
         self.data = Node(data)
         self.nodes = self.data.add_node(data, top, bottom, left, right)                                  
         self.graph[data] =  self.nodes
@@ -66,6 +67,7 @@ class Graph:
         return self.parent
 
     def shortest_path(self, start, goal):
+        """This method will find shortest path from start of node till goal and finds its distance"""        
         self.queue = [goal]              
         while self.queue:            
             vertex = self.queue.pop(0)         
@@ -81,6 +83,7 @@ class Graph:
         return self.traversed
 
     def bfs_traversal(self):
+        """This method will traverse through the nodes and builds visited list containing all elements of the puzzle"""
         start_value = 1        
         self.frontier.append(start_value)     
         while self.frontier:

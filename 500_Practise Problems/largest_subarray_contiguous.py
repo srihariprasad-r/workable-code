@@ -8,10 +8,10 @@ def longerSubArray(array,n):
     array_len = 0
     for i in range(n-1):
         mx = mn = array[i]
-        for j in range(i+1,n):
+        for j in range(i+1,n):          
             mx = max(mx, array[j])
-            mn = min(mn, array[j])        
-
+            mn = min(mn, array[j])   
+                          
             if ((mx - mn) == j-i):
                 array_len = max(array_len, mx-mn+1)    
     return array_len

@@ -41,12 +41,9 @@ def findlargestnode(array, index, size = 0):
     return array
 
 array = [0,1,3,2,4,9,7,5]
-#p, l, r = findparent(3)
-#print(p,l,r)
-#findswap(2,3)
 size = elementsize(array)
-sortedarray = findlargestnode(array, 1, size)
-print(sortedarray)
-
-
-#print(sortedarray)
+p = size
+while (p > 0):
+    sortedarray = findlargestnode(array, p, size)    
+    print(sortedarray)
+    p -= 1

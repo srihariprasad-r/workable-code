@@ -9,16 +9,22 @@ def decreaseincreasearray(x, k):
     inc_count = 0
     dec_count = 0
     same_count = 0
+    inc_dec_dict = {}    
     for i in range(0, len(x)):
         y = x[i:i+k]
         for j in range(len(y)-1):
             if y[j] < y[j + 1]:
                 inc_count += 1
+                inc_dec_dict.setdefault('inc', []).append(i)
             elif y[j] > y[j + 1]:
-                dec_count += 1
+                dec_count -= 1
+                inc_dec_dict.setdefault('dec', []).append(i)
             else:
                 same_count = 1
-    print(inc_count, dec_count, same_count)
+                inc_dec_dict.setdefault('same', []).append(i)
+    #print(inc_count, dec_count, same_count)
+    print(inc_dec_dict)
+
 
              
 

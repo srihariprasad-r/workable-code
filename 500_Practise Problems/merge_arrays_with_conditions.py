@@ -16,37 +16,42 @@ def rearrange(x, y):
         if x[i] != 0:
             x[count] = x[i]
             count += 1
-        
+    newcount = count        #this variable is used to capture count of non-zero elements in the list
+
     while(count < len(x)):
         x[count] = 0
         count += 1
-    print(count)
-    return x, y 
+    return x, y, newcount
 
 
-def mergesort(x, y):
-    m = len(x)
-    n = len(y)
-    i = 0 
-    j = 0
-    k = 0
+def mergesort(x, y, count):
 
-    while (i < m and j < n):
-        if x[i] > y[j]:
-            x[k] = y[j]
-            j += 1
+    m = count - 1
+    n = len(y) - 1
+    k = m + n + 1
+
+    while (m >= 0 and n >= 0):
+        if x[m] > y[n]:
+            x[k] = x[m]
+            m -= 1
         else:
-            i += 1
-        k += 1
+            x[k] = y[n]
+            n -= 1
+        k -= 1
     
-    while n <= 0:
+    while n >= 0:
         x[k] = y[n]
         n -= 1
+        k -= 1
 
-    print(x)
+    for i in range(len(y)):
+        y[i] = 0
+
+    return x, y 
 
 x = [0,2,0,3,0,5,6,0,0]
 y = [1,8,9,10,15]
 
-new_x, y = rearrange(x,y)
-mergesort(new_x, y)
+new_x, y, nonzero_count = rearrange(x,y)
+upd_x, upd_y = mergesort(new_x, y, nonzero_count)
+print(upd_x, upd_y)

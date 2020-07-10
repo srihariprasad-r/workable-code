@@ -8,10 +8,9 @@ s2= 'CLCL'
 output: 'CLC' 
 """
 
-def longestcommonsubstring(s1, s2, k):
-    l1, l2 = k, len(s2)
-    match_list = [[0] * 4]* 4
-    print(match_list)
+def longestcommonsubstring(s1, s2):
+    l1, l2 = len(s1), len(s2)
+    match_list = [[0] * l1]* l1
     max = 0
     result = ""
     for i in range(l2):
@@ -21,20 +20,19 @@ def longestcommonsubstring(s1, s2, k):
                     match_list[i][j] = 1
                 else:
                     match_list[i][j] = match_list[i - 1][j - 1] + 1
-                print(result, max)
                 if match_list[i][j] > max: 
                     result = ""
                     max = match_list[i][j]
                     result += s1[i+1-max:i+1]
-                elif match_list[i][j] == max:
-                    if result[:max+1].find(s1[i]) < 0:
-                        result += s1[i- max+1:i+1]
-            else:
-                match_list[i][j] = 0
+                #elif match_list[i][j] == max:
+                #    if result[:max+1].find(s1[i]) < 0:
+                #        result += s1[i- max+1:i+1]
+            #else:
+            #    match_list[i][j] = 0
     return result
         
 
 
-s1 = "LCLC"
-s2 = "CLCL"
-print(longestcommonsubstring(s1, s2, len(s1)))
+s1 = "ABAB"
+s2 = "BABA"
+print(longestcommonsubstring(s1, s2))

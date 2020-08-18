@@ -14,5 +14,5 @@ def multiply(x, y):
 
 def division(x, y):
     if y == 0:
-        return multiply(x, y)
+        raise ValueError
     return x / y

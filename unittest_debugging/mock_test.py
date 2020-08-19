@@ -10,7 +10,7 @@ class Simpletest(unittest.TestCase):
         x = 3
         y = 6
 
-        mock_multiply.return_value = 1
+        mock_multiply.return_value = 18
 
         addition, multiply = add_multiply(x, y)
 

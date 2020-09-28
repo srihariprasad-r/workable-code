@@ -1,4 +1,4 @@
-def edit_distance(str1, st2, m , n):
+def edit_distance(str1, str2, m , n):
 
     if m == 0:
         return n

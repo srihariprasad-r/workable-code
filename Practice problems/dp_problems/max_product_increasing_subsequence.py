@@ -1,7 +1,4 @@
 def msps(arr):
-    start = 0
-    end = 0
-
     prd = [i for i in arr]    
 
     for i in range(1, len(arr)):

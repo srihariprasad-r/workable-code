@@ -43,20 +43,22 @@ class BFS(Graph):
                 curlist.append(node)
                 array[node] = True
                 if node in self.graph:                    
-                    for i in range(len(self.graph[node])):
+                    for i in range(len(self.graph[node])):                        
                         if not(array[self.graph[node][i]]):
                             self.queue.append(self.graph[node][i])
 
             self.result.append(curlist)
-        return self.result
+
+        return self.result[1:]                         
 
 
-g = BFS(4, 0)
+g = BFS(4, 2)
 g.addEdge(0,1)
+g.addEdge(0,2)
 g.addEdge(1,2)
-g.addEdge(1,3)
-g.addEdge(3,2)
+g.addEdge(2,0)
 g.addEdge(2,3)
+g.addEdge(3,2)
 print(g.executeBFS())
 
 

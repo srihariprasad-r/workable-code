@@ -1,24 +1,25 @@
 def dijkshtra(times, N, k):
     neighbours = {}
+    weights = {}
 
     for i in range(len(times)):
+        new_list = []
         neighbours.setdefault(times[i][0], []).append(times[i][1])
+        for j in range(2):
+            new_list.append(times[i][j])
+        weights[times[i][2]] = new_list
 
-    for key in neighbours.keys():
+    weight_list = [v for v in weights.values()]
+    weight_values = [k for k in weights.keys()]
+    derived_dict = list(zip(weight_list, weight_values))
+    print(list(derived_dict))
+    
+    for key,values in neighbours.items():
         if key == k:
             visited_array[k] = True
             distance_array[k] = min(0, distance_array[k])
-
-
-def recursive_execution(neighbours, k):
-   for key, val in neighbours.items():
-        if key == k:
-            visited_array[k] = True
-            distance_array[k] = min(0, distance_array[k])
-        for i in range(len(val)):
-           if not(visited_array[val[i]]):
-               dist = times[key][i][2]
-               distance_array[key] = distance_array[key] + dist
+        for i in range(len(values)):
+            distance_array[values[i]] = min(distance_array[values[i]], distance_array[k] + derived_dict)
 
 
 N = 6

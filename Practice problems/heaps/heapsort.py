@@ -6,39 +6,29 @@ def swap(i, j):
 
 def heap_sort(arr):
     build_heap(arr)
-    print("after build heap:", arr)
-    for i in range(len(arr) -1 , 0, -1):
+    for i in range(len(arr) -1 , -1, -1):
         arr[i], arr[0] = arr[0], arr[i]
-        print("inside for loop:", arr, i)
-        heapify(arr,index=0, size=i)
-
-def parent(n):
-    return (n-1)//2
+        heapify(arr, i, len(arr)-1)
 
 def build_heap(arr):
-    length = len(arr)
-    start = parent(length - 1)
-    while start >= 0:
-        print("inside loop with start value:", start)
-        heapify(arr,index=start, size=length)
-        start -= 1
+    length = len(arr) -1
+    for i in range((len(arr)//2)-1, -1, -1):
+        heapify(arr,index=i, size=length)
 
 def heapify(arr,index, size):
     left = (2 * index) + 1
     right = (2* index) + 2
 
-    smallest  = index
-
-    if left < size and arr[left] < arr[index]:
+    if left <= size and arr[left] > arr[index]:
         smallest = left 
+    else:
+        smallest = index
     
-    if right < size and arr[right] < arr[index]:
+    if right <= size and arr[right] > arr[smallest]:
         smallest = right
     
-    print("value is:", smallest, index, left, right)
     if smallest != index:
         arr[index], arr[smallest] = arr[smallest], arr[index]
-        print("after transpose", arr)
         heapify(arr,smallest, size)
 
 

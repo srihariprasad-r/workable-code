@@ -2,31 +2,47 @@ def swap(i, j):
     tmp = array[i]
     array[i] = array[j]
     array[j] = tmp
-    return 
+    return array
 
+def heap_sort(arr):
+    build_heap(arr)
+    print("after build heap:", arr)
+    for i in range(len(arr) -1 , 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        print("inside for loop:", arr, i)
+        heapify(arr,index=0, size=i)
 
-def heapify(k):
-    size = len(array)
-    left = 2 * k + 1
-    right = 2* k + 2
+def parent(n):
+    return (n-1)//2
 
-    smallest  = k
+def build_heap(arr):
+    length = len(arr)
+    start = parent(length - 1)
+    while start >= 0:
+        print("inside loop with start value:", start)
+        heapify(arr,index=start, size=length)
+        start -= 1
 
-    if left < size and array[left] < array[k]:
+def heapify(arr,index, size):
+    left = (2 * index) + 1
+    right = (2* index) + 2
+
+    smallest  = index
+
+    if left < size and arr[left] < arr[index]:
         smallest = left 
-    elif right < size and array[right] < array[k]:
+    
+    if right < size and arr[right] < arr[index]:
         smallest = right
     
-    if smallest != k:
-        swap(k, smallest)
-        # heapify(smallest)
+    print("value is:", smallest, index, left, right)
+    if smallest != index:
+        arr[index], arr[smallest] = arr[smallest], arr[index]
+        print("after transpose", arr)
+        heapify(arr,smallest, size)
 
-array = [6,4,7,1,9,-2]
-n = len(array)
 
-i = (n-2) //2 
-while i >= 0:
-    heapify(i)
+array = [12, 11, 13, 5, 6, 7]
+heap_sort(array)
 
 print(array)
-

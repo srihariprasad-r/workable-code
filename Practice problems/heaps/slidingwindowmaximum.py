@@ -1,30 +1,24 @@
-def heap_sort(arr, k):
-    build_heap(arr)
-    for i in range(len(arr)-1 , -1, k):
-        arr[i], arr[0] = arr[0], arr[i]
-        heapify(arr, 0, i)
+from collections import deque
 
-def build_heap(arr):
-    for i in range((len(arr)//2) -1, -1, -1):
-        heapify(arr, i, len(arr))
+q = deque()
+result = []
 
-def heapify(arr, index, size):
-    left = 2 * index + 1
-    right = 2 * index + 2
+def slidingwindowmaximum(arr,k):
+    for i in range(0,k):
+        while len(q) > 0 and arr[i] >= arr[q[-1]]:
+            q.pop()
+        q.append(i)
+    result.append(q[0])
     
-    if left < size and arr[left] > arr[index]:
-        largest = left
-    else:
-        largest = index
+    for i in range(k, len(arr)):
+        while len(q) > 0 and q[0] <= i - k:
+            q.popleft()
+        while len(q) > 0 and arr[i] >= arr[q[-1]]:
+            q.pop()
+        q.append(i)
+        result.append(q[0])
 
-    if right < size and arr[right] > arr[largest]:
-        largest = right
-    
-    if largest != index:
-        arr[largest], arr[index] = arr[index], arr[largest]
-        heapify(arr, largest, size)
-
-k = 4
-array = [12, 11, 13, 5, 6, 7]
-heap_sort(array, 2)
-print(array)
+k = 3
+array = [12, 1, 78, 90, 57, 89, 56]
+slidingwindowmaximum(array, k)
+print([array[i] for i in result])

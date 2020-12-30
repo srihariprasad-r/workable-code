@@ -1,15 +1,17 @@
-def kthlargestcontinoussum(arr):
-    csum, max_sum = 0, float('-inf')
+result = []
+
+def kthlargestcontinoussum(arr,k):
+    csum = 0
     for i in range(len(arr)):
         start = i + 1
         csum = arr[i]
         while start < len(arr) :
             csum += arr[start]
             start += 1
-        if max_sum < csum:
-            max_sum = csum
+        result.append(csum)
 
-    return max_sum
+    result.sort(key=lambda  x: -x)
+    return result[k-1]
 
 arr = [20, -5, -1]
-print(kthlargestcontinoussum(arr))
+print(kthlargestcontinoussum(arr,1))

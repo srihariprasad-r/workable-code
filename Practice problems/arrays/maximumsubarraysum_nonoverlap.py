@@ -1,4 +1,8 @@
-def nonoverlapmaxsum(arr):
+from collections import deque
+
+q = deque()
+
+def nonoverlapmaxsum(arr,k):
     maxfar, end, s, st  = float('-inf'), 0, 0, 0
     for i in range(len(arr)):
         start= i
@@ -9,12 +13,16 @@ def nonoverlapmaxsum(arr):
                 maxfar = max_sum
                 st = s
                 end = start
+                q.appendleft(maxfar)
             elif max_sum < 0:
                 max_sum = 0
                 s = start +1
             start += 1
 
-    return maxfar, arr[st: end+1]
+    while len(q) > 0 and len(q) > k:
+        q.pop()
 
-arr = [4, 1, 1, -1, -3, -5, 6, 2, -6, -2]
-print(nonoverlapmaxsum(arr))
+    return q
+
+arr = [5, 1, 2, -6, 2, -1, 3, 1]
+print(nonoverlapmaxsum(arr, 2))

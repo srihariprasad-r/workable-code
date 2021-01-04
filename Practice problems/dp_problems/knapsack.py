@@ -1,17 +1,18 @@
 def knapsack(wt, val, w):
-    dp = [[0] * (w + 1)] * len(wt)
+    dp = [[0] * (w + 1)] * (len(wt))
 
     for i in range(w+1):
         if wt[0] <= i:
-            dp[0][i] = wt[0]
+            dp[0][i] = val[0]
 
-    for i in range(w+1):
-        for j in range(len(wt)+1):
-            if wt[j] <= i:
-                incl = val[i] + dp[i-1][i-wt[j]]
-        dp[i][j] = incl + dp[i-1][j]
+    for i in range(1,len(wt)):
+        for j in range(1,w+1):
+            incl = 0
+            if wt[i] <= j:
+                incl = val[i] + dp[i-1][j-wt[i]]
+            dp[i][j] = max(incl , dp[i-1][j])
 
-    print(dp)
+    return dp[-1][-1]
 
 
 wt = [1, 2, 3, 5]

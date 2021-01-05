@@ -1,9 +1,11 @@
 def knapsack(wt, val, w):
-    dp = [[0] * (w + 1)] * (len(wt))
+    dp = [[0 for x in range(w+1)] for y in range(len(wt))]
 
-    for i in range(w+1):
-        if wt[0] <= i:
-            dp[0][i] = val[0]
+    tmp = dp[0]
+
+    for i in range(len(dp[0])): 
+        if i >= wt[0]:
+            tmp[i] = val[0]
 
     for i in range(1,len(wt)):
         for j in range(1,w+1):

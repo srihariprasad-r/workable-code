@@ -1,3 +1,15 @@
+"""
+Notes:
+1.X-axis will be capacity, Y-axis will represent weights
+2.If capacity is 0, profit gained will be zero, so all first column will be defaulted to 0
+3.For first row, we assign lowest weight for columns which have capacity >= lowest weight
+4. For remaning rows,
+    a. We exclude current weight in case capacity < current weight.
+        Take previous row value
+    b. We include current weight in case capcacity >= current weight
+        Take current weight profit + previous row's profit of capacity remains ( current weight - capacity)
+5. Take maximum(excluding current weight + including current weight)
+"""
 def knapsack(wt, val, w):
     dp = [[0 for x in range(w+1)] for y in range(len(wt))]
 

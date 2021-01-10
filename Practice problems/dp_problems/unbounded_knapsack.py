@@ -3,11 +3,13 @@ def unboundedknapsack(wt, val, w):
 
     for i in range(0,len(wt)):
         for j in range(1,w+1):
-            incl = 0
+            incl, excl = 0, 0
             if wt[i] <= j:
                 incl = val[i] + dp[i][j-wt[i]]
-            dp[i][j] = max(incl , dp[i-1][j])
-            
+            if i > 0:
+                excl = dp[i-1][j]   #exclude only when more than one weight
+            dp[i][j] = max(incl , excl)
+
     return dp[-1][-1]
 
 

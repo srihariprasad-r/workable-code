@@ -28,7 +28,7 @@ def subsetsum(arr, tsum):
 
     for i in range(1,len(dp)):
         for j in range(1,tsum+1):
-            dp[i][j] = dp[i-1][tsum - j] or  dp[i-1][tsum]
+            dp[i][j] = dp[i-1][j-arr[i-1]] or  dp[i-1][j]
 
     return dp[-1][-1] 
 

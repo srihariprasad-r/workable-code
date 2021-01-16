@@ -14,6 +14,6 @@ def largestsubarraysum(arr,k):
     return mx
 
 
-arr = [4, 1, 1, 1, 2, 3, 2, 5
+arr = [4, 1, 1, 1, 2, 3, 2, 5]
 k = 5 
 print(largestsubarraysum(arr, k))

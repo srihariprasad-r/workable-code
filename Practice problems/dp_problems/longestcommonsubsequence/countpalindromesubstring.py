@@ -5,12 +5,16 @@ def countpalindromesubstring(str1):
     for g in range(len(str1)):
         j = g
         for i in range(len(str1)):
-            if g == 0:
-                dp[i][j] = True
-            elif g == 1:
+            if g == 0:              # across diagonal. g represents gap, gaps starts in first row and ends in last column
+                dp[i][j] = True     # all strings have single character, they match and create palindorme
+            elif g == 1:            
                 if str1[i] == str1[j]:
-                    dp[i][j] = True
+                    dp[i][j] = True     # here values will be 'aa', 'bb', so they are made true when first and last char match
             elif str1[i] == str1[j] and dp[i+1][j-1]:
+                """
+                We match first and last character match, if that is true, we take next row and previous column to check if its valid
+                For example: bccb , first and last character match, so we proceed checking if cc is palindrome, update that row in dp
+                """
                 dp[i][j] = True
 
 

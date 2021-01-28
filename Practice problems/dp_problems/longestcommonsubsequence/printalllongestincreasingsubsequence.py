@@ -26,14 +26,15 @@ def printalllis(arr):
 
     q.append(oindex)
     result = []
+
     while len(q) > 0:
         curList = []
-        val = q.popleft()
-        curList.append(arr[val])
-        for j in range(val-1, 0, -1):
-            if arr[val] > arr[j]:
+        for _ in range(len(q)):
+            val = q.popleft()
+            j = val - 1
+            if arr[val] > arr[j] and j > 1:
                 q.append(j)
-                curList.append(arr[j])
+            curList.append(arr[j])
         result.append(curList)
 
     print(result)

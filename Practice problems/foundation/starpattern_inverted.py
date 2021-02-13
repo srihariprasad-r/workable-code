@@ -1,23 +1,23 @@
 """
-            * 
-
-          * *
-
-        * * *
+    * * * * * 
 
       * * * *
 
-    * * * * *
+        * * *
+
+          * *
+
+            *
 """
 def starpattern(n):
-    sp, st = n - 1, 1
+    st, sp = n, 0
     for _ in range(n):
-        for _ in range(sp, 0, -1):
+        for _ in range(sp):
             print(" ", end=" ")
-        for _ in range(st):
+        for _ in range(st, 0, -1):
             print("*",end=" ")
-        sp -= 1
-        st += 1
+        sp += 1
+        st -= 1
         print("\n")
             
 

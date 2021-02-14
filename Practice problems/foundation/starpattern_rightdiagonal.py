@@ -11,7 +11,7 @@
 """
 def starpattern(n):
     sp, st = n -1, 1
-    for i in range(n):
+    for _ in range(n):
         for _ in range(sp, -1, -1):
             print(" ", end=" ")
         for _ in range(st):

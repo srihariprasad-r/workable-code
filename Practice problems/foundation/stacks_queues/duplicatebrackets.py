@@ -2,7 +2,7 @@ from collections import deque
 
 q = deque()
 
-def balancedbracket(str):
+def duplicatebracket(str):
 
     for i in range(len(str)):
         if str[i] != ')':
@@ -18,4 +18,4 @@ def balancedbracket(str):
     return False
 
 str = "(a+b)+((c+d))"
-print(balancedbracket(str))
+print(duplicatebracket(str))

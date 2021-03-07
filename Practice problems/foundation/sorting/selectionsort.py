@@ -3,7 +3,7 @@ Selection sort assumes that if there are n elements, and if n -1 is sorted, then
 
 So, first loop goes to n -1 iteration
   - assign i as min element
-  - For each iteration, j will run from 0 to len(arr)
+  - For each iteration, j will run from i+1 to len(arr)
   - if elements at index min > j, swap them at end of each iteration
 
 """

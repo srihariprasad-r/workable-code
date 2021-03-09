@@ -13,6 +13,9 @@ we will consider 2 stacks, one for operand and other for operator
 6. when we encounter operator, we check below:
   - when last element in operator stack has higher precedence, we pop that element, else we append
   - we stop pop of elements when we hit '('
+7. There can be leftover in either of stacks in any of the cases, 
+for ex: 2*3+6
+In this case repeat same pop operation as above # 4
 """
 def infixevaluvation(str):
     def predecense(op1):
@@ -37,7 +40,9 @@ def infixevaluvation(str):
     operand = []
     
     for i in range(len(str)):
-        if str[i].isdigit():
+        if str[i] == '(':
+            operator.append(str[i])
+        elif str[i].isdigit():
             operand.append(int(str[i]))
         elif str[i] == '+' or str[i] == '-' or str[i] == '*' or str[i] == '/':
             while len(operator) > 0 and operator[-1] != '(' and predecense(str[i]) <= predecense(operator[-1]):
@@ -49,17 +54,24 @@ def infixevaluvation(str):
                 operand.append(opv)
             operator.append(str[i])
         elif str[i] == ')':
-            while len(operator) > 0 and operator[-1] != '(':
+            while operator[-1] != '(':
                 op = operator.pop()
                 v2 = operand.pop()
                 v1 = operand.pop()
                 
                 opv = operation(v1, v2, op)
                 operand.append(opv)
-            if len(operator) > 0:
-                operator.pop()
+            operator.pop()
+
+    while len(operator) > 0:
+        op = operator.pop()
+        v2 = operand.pop()
+        v1 = operand.pop()
                 
+        opv = operation(v1, v2, op)
+        operand.append(opv)   
+        
     return operand[-1]
 
-str="2+(3*6)"
+str="((2*(6-1))/2)*4"
 print(infixevaluvation(str))

@@ -12,6 +12,7 @@ we will consider 2 stacks, one for operand and other for operator
 5. we will continue this until we find '('
 6. when we encounter operator, we check below:
   - when last element in operator stack has higher precedence, we pop that element, else we append
+  - we stop pop of elements when we hit '('
 """
 def infixevaluvation(str):
     def predecense(op1):
@@ -39,7 +40,7 @@ def infixevaluvation(str):
         if str[i].isdigit():
             operand.append(int(str[i]))
         elif str[i] == '+' or str[i] == '-' or str[i] == '*' or str[i] == '/':
-            while len(operator) > 0 and ((predecense(str[i]) <= predecense(operator[-1])) or operator[-1] != '('):
+            while len(operator) > 0 and operator[-1] != '(' and predecense(str[i]) <= predecense(operator[-1]):
                 op = operator.pop()
                 v2 = operand.pop()
                 v1 = operand.pop()
@@ -58,7 +59,7 @@ def infixevaluvation(str):
             if len(operator) > 0:
                 operator.pop()
                 
-    return operand
+    return operand[-1]
 
 str="2+(3*6)"
 print(infixevaluvation(str))

@@ -75,9 +75,14 @@ def binarytree(arr):
             el.state += 1
         else:
             stck.pop()
-    
+    print("#============== BEGIN =================================#")
+    print("#========Display of tree elements with nodes ==========#")
     display(rp)
+    print("#========Pre/post & In order traversal ================#")
     traversal(rp)
+    print("#========Level order traversal ========================#")
+    levelorder(rp)
+    print("#=================END =================================#")
     
 def traversal(pair):
     if pair is None:
@@ -89,5 +94,23 @@ def traversal(pair):
     traversal(pair.right)
     print(str(pair.value) + " post-order ")
 
-arr = [50,25, -1, -1,12, -1, -1]
+
+def levelorder(pair):
+    from collections import deque
+    q =deque()
+
+    q.append(pair)
+
+    while len(q) > 0:
+        size = len(q)
+        for _ in range(size):
+            node = q.popleft()
+            print(str(node.value) + " ")
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+
+
+arr = [50,25,12, -1, -1, 37, 30, -1, -1, 40, -1, -1, 75, 62, 60, -1, -1, 70, -1, -1, 87, -1, -1]
 print(binarytree(arr))

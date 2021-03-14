@@ -82,6 +82,9 @@ def binarytree(arr):
     traversal(rp)
     print("#========Level order traversal ========================#")
     levelorder(rp)
+    print("#========Find path from node to root ========================#")
+    findelement(rp, 70)
+    print(path)
     print("#=================END =================================#")
     
 def traversal(pair):
@@ -111,6 +114,28 @@ def levelorder(pair):
             if node.right:
                 q.append(node.right)
 
+path = []
+def findelement(pair, data):
+    if pair is None:
+        return False
+        
+    if pair.value == data:
+        path.append(pair.value)
+        return True
+    
+    if pair.left:
+        filc = findelement(pair.left, data)
+        if filc:
+            path.append(pair.value)
+            return True
+            
+    if pair.right:
+        firc = findelement(pair.right, data)
+        if firc:
+            path.append(pair.value)
+            return True
+            
+    return False
 
 arr = [50,25,12, -1, -1, 37, 30, -1, -1, 40, -1, -1, 75, 62, 60, -1, -1, 70, -1, -1, 87, -1, -1]
 print(binarytree(arr))

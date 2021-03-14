@@ -85,6 +85,10 @@ def binarytree(arr):
     print("#========Find path from node to root ========================#")
     findelement(rp, 70)
     print(path)
+    print("#========Print K levels down ========================#")
+    printKlevels(rp, 3)
+    print("#========Print K levels far from the node ================#")
+    printnodesKlevelsfar(rp, 40, 3)
     print("#=================END =================================#")
     
 def traversal(pair):
@@ -136,6 +140,51 @@ def findelement(pair, data):
             return True
             
     return False
+
+def printKlevels(pair,k):
+    if pair is None or k < 0:
+        return
+    
+    if k == 0:
+        print(pair.value)
+        
+    printKlevels(pair.left, k-1)
+    printKlevels(pair.right, k - 1)
+    
+rootpath = []    
+def printnodesKlevelsfar(pair, data, k):
+    def find(pair, data):
+        if pair is None:
+            return False
+        
+        if pair.value == data:
+            rootpath.append(pair)
+            return True
+    
+        filc = find(pair.left, data)
+        if filc:
+            rootpath.append(pair)
+            return True
+    
+        firc = find(pair.right, data)
+        if firc:
+            rootpath.append(pair)
+            return True
+        
+        return False
+    
+    def _printKlevels(pair, k, blocker):
+        if pair is None or k < 0 or pair == blocker:
+            return
+        if k == 0:
+            print(pair.value)
+        _printKlevels(pair.left, k - 1, blocker)
+        _printKlevels(pair.right, k - 1, blocker)
+        
+    find(pair, data)
+    for i in range(len(rootpath)):
+        _printKlevels(rootpath[i], k-i, None if i == 0 else rootpath[i-1])
+
 
 arr = [50,25,12, -1, -1, 37, 30, -1, -1, 40, -1, -1, 75, 62, 60, -1, -1, 70, -1, -1, 87, -1, -1]
 print(binarytree(arr))

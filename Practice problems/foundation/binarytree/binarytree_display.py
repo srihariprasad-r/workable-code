@@ -77,6 +77,17 @@ def binarytree(arr):
             stck.pop()
     
     display(rp)
+    traversal(rp)
+    
+def traversal(pair):
+    if pair is None:
+        return
+    
+    print(str(pair.value) + " pre-order ")
+    traversal(pair.left)
+    print(str(pair.value) + " in-order ")
+    traversal(pair.right)
+    print(str(pair.value) + " post-order ")
 
 arr = [50,25, -1, -1,12, -1, -1]
 print(binarytree(arr))

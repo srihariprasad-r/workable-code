@@ -148,4 +148,47 @@ edges = [
         (3,4),
         (4, 5)
     ]
-print(cycle_build_graph(edges, N))
+print(cycle_build_graph(edges, N))  # True
+
+################################ Longest Path in Graph ##################################################
+
+def longest_path_build_graph(edges, N):
+    graph = {}
+    visited = [0]*N
+    
+    for src, dest in edges:
+        graph.setdefault(src, []).append(dest)
+        graph.setdefault(dest, []).append(src)
+
+    for _ in range(N):
+        if visited[0] == 0:
+            maxdistance, maxnode  = longest_path_dfs(graph, 1, visited, 0, maxD=-1, maxNode=-1)
+
+    # do dfs call with maxnode and find longest path
+    visited = [0]*N     # resets visit array for new dfs
+    maxdistance, maxnode  = longest_path_dfs(graph, maxnode, visited, 0, maxD=-1, maxNode=-1)
+    
+    return maxdistance, maxnode
+    
+def longest_path_dfs(graph, nodes, visited, distance, maxD, maxNode):
+    visited[nodes-1] = 1
+
+    if maxD < distance : 
+        maxD = distance
+        maxNode = nodes
+
+    for child in graph[nodes]:
+        if visited[child-1] == 0:
+            maxD, maxNode = longest_path_dfs(graph, child, visited, distance + 1, maxD, maxNode)
+
+    return maxD, maxNode
+
+N = 6
+edges = [
+        (1, 2),
+        (2,3),
+        (2,4),
+        (3,4),
+        (4, 5)
+    ]
+print(longest_path_build_graph(edges, N))  # True

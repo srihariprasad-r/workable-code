@@ -191,4 +191,41 @@ edges = [
         (3,4),
         (4, 5)
     ]
-print(longest_path_build_graph(edges, N))  # True
+print(longest_path_build_graph(edges, N))  # (3, 1)
+
+################################ Shortest Path in Graph ##################################################
+
+def shortest_path_build_graph(edges, N):
+    graph = {}
+    visited = [0]*N
+    distance =[0] * N
+    
+    for src, dest in edges:
+        graph.setdefault(src, []).append(dest)
+        graph.setdefault(dest, []).append(src)
+
+    for _ in range(N):
+        if visited[0] == 0:
+            d = shortest_path_dfs(graph, 1, visited, distance, 0)
+        
+    return d
+    
+def shortest_path_dfs(graph, nodes, visited, distance,d):
+    visited[nodes-1] = 1
+    distance[nodes-1] = d
+
+    for child in graph[nodes]:
+        if visited[child-1] == 0:
+            shortest_path_dfs(graph, child, visited, distance, d + 1)
+
+    return distance
+
+N = 6
+edges = [
+        (1, 2),
+        (2,3),
+        (2,4),
+        (4, 5),
+        (4,6)
+    ]
+print(shortest_path_build_graph(edges, N))  # [0, 1, 2, 2, 3, 3]

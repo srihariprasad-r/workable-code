@@ -76,4 +76,40 @@ edges = [
 connected_component_count = connected_components_build_graph(edges, N)
 print(connected_component_count)    # 3
 
- ################################ ######################################################################
+ ################################ Bipartite graph ##################################################
+
+def bipartite_build_graph(edges, N):
+    graph = {}
+    visited = [0]*N
+    color = [0]*N 
+    
+    for src, dest in edges:
+        graph.setdefault(src, []).append(dest)
+        graph.setdefault(dest, []).append(src)
+
+    for i in range(N):
+        if visited[0] == 0:
+            return bipartite_check(graph, 'A', visited, color, 0)
+    
+def bipartite_check(graph, nodes, visited, color, c):
+    visited[ord(nodes)-ord('A')] = 1
+    color[ord(nodes)-ord('A')] = c
+
+    for child in graph[nodes]:
+        for i in range(len(child)):
+            if visited[ord(child[i]) - ord('A')] == 0:
+                bipartite_check(graph, child[i], visited, color, c ^ 1)
+            else:
+                if color[ord(nodes)-ord('A')] == color[ord(child[i]) - ord('A')]:
+                    return False
+
+N = 6
+edges = [
+        ('A', 'B'),
+        ('A','C'),
+        ('B','D'),
+        ('B','E'),
+        ('C', 'F'),
+        ('E','F')
+    ]
+print(bipartite_build_graph(edges, N))

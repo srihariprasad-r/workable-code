@@ -87,7 +87,7 @@ def bipartite_build_graph(edges, N):
         graph.setdefault(src, []).append(dest)
         graph.setdefault(dest, []).append(src)
 
-    for i in range(N):
+    for _ in range(N):
         if visited[0] == 0:
             return bipartite_check(graph, 'A', visited, color, 0)
     
@@ -113,3 +113,39 @@ edges = [
         ('E','F')
     ]
 print(bipartite_build_graph(edges, N))
+
+ ################################ Check for cycle graph ##################################################
+
+def cycle_build_graph(edges, N):
+    graph = {}
+    visited = [0]*N
+    
+    for src, dest in edges:
+        graph.setdefault(src, []).append(dest)
+        graph.setdefault(dest, []).append(src)
+
+    for _ in range(N):
+        if visited[0] == 0:
+            return cycle_check(graph, 1, visited, -1)
+    
+def cycle_check(graph, nodes, visited, parent):
+    visited[nodes-1] = 1
+
+    for child in graph[nodes]:
+        if visited[child-1] == 0:
+            if cycle_check(graph, child, visited, nodes):
+                return True
+        else:
+            if child != parent:
+                return True
+    return False
+
+N = 6
+edges = [
+        (1, 2),
+        (2,3),
+        (2,4),
+        (3,4),
+        (4, 5)
+    ]
+print(cycle_build_graph(edges, N))

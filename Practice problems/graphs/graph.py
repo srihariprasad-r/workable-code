@@ -335,7 +335,7 @@ def prime_path_bfs(bfs_graph, src):
     distance[src] = 0
 
     while len(q) > 0:
-        elm = q.pop()
+        elm = q.popleft()       # changed to popleft 
 
         for child in bfs_graph[elm]:
             if not(visited[child]):
@@ -358,4 +358,4 @@ def prime_path_build_graph(src,trgt):
 
     return prime_path_bfs(bfs_graph, src)[trgt]
 
-print(prime_path_build_graph(1033, 8179))       # 6  Issue with result, need to check
+print(prime_path_build_graph(1033, 8179))       # 6

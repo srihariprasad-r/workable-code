@@ -193,7 +193,7 @@ edges = [
     ]
 print(longest_path_build_graph(edges, N))  # (3, 1)
 
-################################ Shortest Path in Graph ##################################################
+################################ Shortest Path in Graph using DFS ##################################################
 
 def shortest_path_build_graph(edges, N):
     graph = {}
@@ -228,4 +228,50 @@ edges = [
         (4, 5),
         (4,6)
     ]
-print(shortest_path_build_graph(edges, N))  # [0, 1, 2, 2, 3, 3]
+print('shortest path using dfs:', shortest_path_build_graph(edges, N))  # [0, 1, 2, 2, 3, 3]
+
+################################ Shortest Path in Graph using BFS ##################################################
+
+from collections import deque
+
+q = deque()
+
+def bfs_shortest_path_build_graph(edges, N):
+    graph = {}
+    visited = [0]*N
+    distance =[0] * N
+    
+    for src, dest in edges:
+        graph.setdefault(src, []).append(dest)
+        graph.setdefault(dest, []).append(src)
+
+    for _ in range(N):
+        if visited[0] == 0:
+            d = shortest_path_bfs(graph, 1, visited, distance, 0)
+        
+    return d
+    
+def shortest_path_bfs(graph, nodes, visited, distance,d):
+    visited[nodes-1] = 1
+    distance[nodes-1] = d
+
+    q.append(nodes)
+
+    while len(q) > 0:
+        el = q.pop()
+        for child in graph[el]:
+            if visited[child-1] == 0:
+                q.append(child)
+                distance[child-1] = distance[el-1] + 1
+
+    return distance
+
+N = 6
+edges = [
+        (1, 2),
+        (2,3),
+        (2,4),
+        (4, 5),
+        (4,6)
+    ]
+print('shortest path using bfs:', shortest_path_build_graph(edges, N)) # [0, 1, 2, 2, 3, 3]

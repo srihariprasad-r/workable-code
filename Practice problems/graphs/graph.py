@@ -275,3 +275,87 @@ edges = [
         (4,6)
     ]
 print('shortest path using bfs:', shortest_path_build_graph(edges, N)) # [0, 1, 2, 2, 3, 3]
+
+################################ Prime path using BFS ##################################################
+
+"""
+find the cheapest prime path between any two given four-digit primes. In one step, only digit can be changed
+Input:
+
+A - 1033 
+B - 8179  
+
+Output : 
+6 steps
+
+    1033
+    1733     
+    3733     
+    3739     
+    3779
+    8779
+    8179    
+"""
+from collections import deque
+
+primes = []
+bfs_graph = {}
+visited = [0] * 10000 
+distance = [0] * 10000 
+
+q = deque()
+
+def isPrime(n):
+    if n == 1: 
+        return False
+
+    for i in range(2, n):
+        if i**2 <= n:
+            if n % i == 0:
+                return False
+
+    return True 
+
+def isValid(a, b):
+    cnt = 0
+    while a > 0:
+        if ((a % 10) != (b % 10)):
+            cnt += 1
+        a = a//10
+        b = b//10
+    
+    if cnt == 1: 
+        return True
+    else:
+        return False
+
+def prime_path_bfs(bfs_graph, src):
+    q.append(src)
+    visited[src] = 1
+    distance[src] = 0
+
+    while len(q) > 0:
+        elm = q.pop()
+
+        for child in bfs_graph[elm]:
+            if not(visited[child]):
+                visited[child] = 1
+                q.append(child)
+                distance[child] = distance[elm] + 1
+
+    return distance
+
+def prime_path_build_graph(src,trgt):
+    for i in range(src, trgt+1):
+        if isPrime(i):
+            primes.append(i)
+
+    for i in range(len(primes)-1):
+        for j in range(i +1 , len(primes)):
+            if isValid(primes[i], primes[j]):
+                bfs_graph.setdefault(primes[i], []).append(primes[j])
+                bfs_graph.setdefault(primes[j], []).append(primes[i])
+
+    return prime_path_bfs(bfs_graph, src)[trgt]
+
+print(prime_path_build_graph(1033, 8179))       # 6  Issue with result, need to check

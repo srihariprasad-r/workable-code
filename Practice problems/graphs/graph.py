@@ -359,3 +359,54 @@ def prime_path_build_graph(src,trgt):
     return prime_path_bfs(bfs_graph, src)[trgt]
 
 print(prime_path_build_graph(1033, 8179))       # 6
+
+################################ Social Networking Distance using BFS ##################################################
+from collections import deque
+
+q = deque()
+
+def social_network_build_graph(edges, N, src_input, lvl):
+    social_network_graph = {}
+
+    for src, dest in edges:
+        social_network_graph.setdefault(src,[]).append(dest)
+        social_network_graph.setdefault(dest,[]).append(src)
+
+    return social_network_bfs(social_network_graph, N, src_input, lvl)
+
+def social_network_bfs(social_graph, N, src, lvl):
+    visited = [0] * (N+1)
+    level = [0] * (N+1)
+    distance = [0] * (N+1)
+
+    q.append(src)
+    visited[src] = 1
+    distance[src] = 0
+
+    while len(q) > 0:
+        el = q.pop()
+        for child in social_graph[el]:
+            if not(visited[child]):
+                visited[child] = 1
+                distance[child] = distance[el] + 1
+                q.append(child)
+                level[distance[child]] += 1 
+
+    return level[lvl]
+
+N = 9
+edges = [
+        (1, 2),
+        (7, 1),
+        (2, 3),
+        (2, 4),
+        (3, 4),
+        (6, 7),
+        (9, 7),
+        (4, 7),
+        (7, 8),
+        (5, 6)
+    ]
+
+print(social_network_build_graph(edges, N, 7, 1))   # 5 nodes which are 1 level away from src_node
+print(social_network_build_graph(edges, N, 5, 2))   # 1 node  which are 2 levels away from src_node

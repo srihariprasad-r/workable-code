@@ -410,3 +410,35 @@ edges = [
 
 print(social_network_build_graph(edges, N, 7, 1))   # 5 nodes which are 1 level away from src_node
 print(social_network_build_graph(edges, N, 5, 2))   # 1 node  which are 2 levels away from src_node
+
+################################ 2D Grid using DFS ##################################################
+
+def grid_2d_dfs_isValid(x, y, M, N, grid_2d_dfs_visited):
+    if x < 1 or y < 1 or x > M or y > N:
+        return False
+    
+    if grid_2d_dfs_visited[x][y]:
+       return False
+
+    return True
+
+
+def dfs_traversal(x, y, M, N, grid_2d_dfs_visited):
+    grid_2d_dfs_visited[x][y] = 1
+
+    print(str(x) + ' ' + str(y))
+
+    if grid_2d_dfs_isValid(x-1, y, M, N, grid_2d_dfs_visited):
+        dfs_traversal(x-1,y, M, N, grid_2d_dfs_visited)
+    if grid_2d_dfs_isValid(x, y+1, M, N, grid_2d_dfs_visited):
+        dfs_traversal(x,y+1, M, N, grid_2d_dfs_visited)
+    if grid_2d_dfs_isValid(x+1, y, M, N, grid_2d_dfs_visited):
+        dfs_traversal(x+1,y, M, N, grid_2d_dfs_visited)
+    if grid_2d_dfs_isValid(x, y-1, M, N, grid_2d_dfs_visited):
+        dfs_traversal(x,y-1, M, N, grid_2d_dfs_visited)
+
+N= 3
+M= 3
+grid_2d_dfs_visited = [[0 for _ in range(N+1)] for _ in range(M+1)]
+dfs_traversal(1,1, 3, 3, grid_2d_dfs_visited)
+

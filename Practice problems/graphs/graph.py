@@ -422,6 +422,8 @@ def grid_2d_dfs_isValid(x, y, M, N, grid_2d_dfs_visited):
 
     return True
 
+# dx = [-1, 0, 1, 0]
+# dy = [0, 1, 0, -1]
 
 def dfs_traversal(x, y, M, N, grid_2d_dfs_visited):
     grid_2d_dfs_visited[x][y] = 1
@@ -436,6 +438,11 @@ def dfs_traversal(x, y, M, N, grid_2d_dfs_visited):
         dfs_traversal(x+1,y, M, N, grid_2d_dfs_visited)
     if grid_2d_dfs_isValid(x, y-1, M, N, grid_2d_dfs_visited):
         dfs_traversal(x,y-1, M, N, grid_2d_dfs_visited)
+
+    # alternate way to use above approach
+    # for i in range(4):
+    #     if grid_2d_dfs_isValid(x+dx[i], y+dy[i],  M, N, grid_2d_dfs_visited):
+    #         dfs_traversal(x+dx[i], y+dy[i],  M, N, grid_2d_dfs_visited)
 
 N= 3
 M= 3

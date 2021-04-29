@@ -492,3 +492,53 @@ arr = [
 grid_2d_dfs_visited = [[0 for _ in range(len(arr[0]))] for _ in range(len(arr))]
 print('connected components in dfs path traversal on 2d grid..')
 print(connected_component_2d(0, 0, arr,grid_2d_dfs_visited))    # 6
+
+################################ 2D Grid using BFS ##################################################
+
+from collections import deque
+
+q = deque()
+
+def grid_2d_bfs_isValid(x, y, M, N, grid_2d_bfs_visited):
+    if x < 0 or y < 0 or x > M-1 or y > N-1:
+        return False
+    
+    if grid_2d_bfs_visited[x][y]:
+       return False
+
+    return True
+
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+def bfs_traversal(x, y, M, N, grid_2d_bfs_visited,grid_2d_bfs_distance):
+    q.append((x, y))
+    grid_2d_bfs_visited[x][y] = 1
+
+    while len(q) > 0:
+        el = q.popleft()
+        x, y = el[0], el[1]
+        for i in range(4):
+            newx, newy = x+dx[i], y+dy[i]
+            if grid_2d_bfs_isValid(newx, newy,  M, N, grid_2d_bfs_visited):
+                grid_2d_bfs_visited[newx][newy] = 1
+                grid_2d_bfs_distance[newx][newy] = grid_2d_bfs_distance[x][y] + 1
+                q.append((newx, newy))
+    
+    for i in range(M):
+        for j in range(N):
+            print(grid_2d_bfs_distance[i][j], end=" ")
+        print(sep="\n")
+
+N= 4
+M= 4
+grid_2d_bfs_visited = [[0 for _ in range(N)] for _ in range(M)]
+grid_2d_bfs_distance = [[0 for _ in range(N)] for _ in range(M)]
+print('bfs path traversal on 2d grid..')
+bfs_traversal(0,0, M, N, grid_2d_bfs_visited, grid_2d_bfs_distance)
+"""
+0 1 2 3
+1 2 3 4
+2 3 4 5
+3 4 5 6
+"""

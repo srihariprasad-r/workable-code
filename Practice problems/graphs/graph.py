@@ -447,5 +447,48 @@ def dfs_traversal(x, y, M, N, grid_2d_dfs_visited):
 N= 3
 M= 3
 grid_2d_dfs_visited = [[0 for _ in range(N+1)] for _ in range(M+1)]
+print('dfs path traversal on 2d grid..')
 dfs_traversal(1,1, 3, 3, grid_2d_dfs_visited)
 
+################################ Connected component in 2D Grid using DFS ##################################################
+
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+def connected_component_2d_isvalid(x, y, arr, dfs_visited):
+    if x < 0 or y < 0 or x > len(arr) -1 or y > len(arr[0]) -1:
+        return False
+    
+    if dfs_visited[x][y] or arr[x][y] == 0:
+        return False
+    return True
+
+def connected_component_2d_dfs_traversal(x, y, arr, dfs_visited):
+    dfs_visited[x][y] = 1
+
+    for i in range(4):
+        if connected_component_2d_isvalid(x+dx[i], y+dy[i], arr, dfs_visited):
+            connected_component_2d_dfs_traversal(x+dx[i], y+dy[i], arr, dfs_visited)
+
+def connected_component_2d(x, y, arr, dfs_visited):
+    grid_connected_component_count = 0
+    for i in range(len(arr)):
+        for j in range(len(arr[0])):
+            if arr[i][j] == 1 and not(dfs_visited[i][j]):
+                grid_connected_component_count += 1
+                connected_component_2d_dfs_traversal(i, j, arr, dfs_visited)
+
+    return grid_connected_component_count
+
+
+arr = [
+    [0, 0, 1, 0, 1, 1],
+    [0, 1, 1, 0, 0, 1],
+    [0, 1, 0, 0, 0, 0],
+    [1, 0, 1, 1, 0, 0],
+    [0, 0, 0, 1, 0, 0],
+    [0, 1, 1, 0, 1, 1],
+]
+grid_2d_dfs_visited = [[0 for _ in range(len(arr[0]))] for _ in range(len(arr))]
+print('connected components in dfs path traversal on 2d grid..')
+print(connected_component_2d(0, 0, arr,grid_2d_dfs_visited))    # 6

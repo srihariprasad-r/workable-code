@@ -542,3 +542,67 @@ bfs_traversal(0,0, M, N, grid_2d_bfs_visited, grid_2d_bfs_distance)
 2 3 4 5
 3 4 5 6
 """
+
+################################ Number of Islands using BFS ##################################################
+from collections import deque
+
+q = deque()
+
+"""
+matrix has below co-ordinates:
+-1, 0  - prev row same col
+-1, -1 - prev row prev col
+0, -1  - same row prev col
+0, 1   - same row next col
+-1, 1  - prev row next col
+1, -1  - next row prev col
+1, 0   - next row same col
+1, 1   - next row same col
+"""
+
+dx = [-1, -1, -1, 0, 0, 1, 1, 1]
+dy = [0, 1, -1, -1, 1, 0, 1, -1]
+
+def islands_is_valid(x, y, arr, grid_2d_num_of_islands_visited):
+    if x < 0 or y < 0 or x > len(arr) - 1 or y > len(arr[0]) - 1:
+        return False
+    
+    if arr[x][y] == 0 or grid_2d_num_of_islands_visited[x][y]:
+        return False
+    
+    return True
+
+def bfs_num_of_islands_traversal(x, y, arr, grid_2d_num_of_islands_visited):
+    q.append((x,y))
+    grid_2d_num_of_islands_visited[x][y] = 1
+
+    while len(q) > 0:
+        el = q.popleft()
+        X, Y = el[0], el[1]
+        for i in range(8):
+            newX, newY = X +dx[i], Y+dy[i]
+            if islands_is_valid(newX, newY, arr, grid_2d_num_of_islands_visited):
+                grid_2d_num_of_islands_visited[newX][newY] = 1
+                q.append((newX, newY))
+
+def number_of_islands(arr, grid_2d_num_of_islands_visited):
+    number_of_islands = 0 
+    for i in range(len(arr)):
+        for j in range(len(arr[0])):
+            if arr[i][j] == 1 and not(grid_2d_num_of_islands_visited[i][j]):
+                bfs_num_of_islands_traversal(i, j, arr, grid_2d_num_of_islands_visited)
+                number_of_islands += 1
+
+    return number_of_islands
+
+arr = [
+ [ 1, 1, 0, 0, 0 ],
+ [ 0, 1, 0, 0, 1 ],
+ [ 1, 0, 0, 1, 1 ],
+ [ 0, 0, 0, 0, 0 ],
+ [ 1, 0, 1, 0, 1 ]
+]
+
+grid_2d_num_of_islands_visited = [[0 for i in range(len(arr[0]))] for i in range(len(arr))]
+print('number of islands using BFS..')
+print(number_of_islands(arr, grid_2d_num_of_islands_visited))   # 5 

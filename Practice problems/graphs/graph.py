@@ -606,3 +606,51 @@ arr = [
 grid_2d_num_of_islands_visited = [[0 for i in range(len(arr[0]))] for i in range(len(arr))]
 print('number of islands using BFS..')
 print(number_of_islands(arr, grid_2d_num_of_islands_visited))   # 5 
+
+################################ Knight moves using BFS ##################################################
+
+from collections import deque
+
+knight_q = deque()
+
+dx = [-2, -1, 1, 2, -2, -1, 1, 2]
+dy = [-1, -2, -2, -1, 1, 2, 2, 1]
+
+def knight_valid_position(x, y, N, M, knight_moves_bfs_visited):
+    if x < 0 or y < 0 or x > N  or y > M :
+        return False
+
+    if knight_moves_bfs_visited[x][y]:
+        return False
+    
+    return True
+
+def knight_moves_bfs_traversal(N, M, src, tgt, knight_moves_bfs_visited, knight_moves_bfs_distance):
+    knight_q.append(src)
+    knight_moves_bfs_visited[src[0]][src[1]] = 1
+
+    while len(knight_q) > 0:
+        el = knight_q.popleft()
+        x, y = el[0], el[1]
+
+        if x == tgt[0] and y == tgt[1]:
+            return knight_moves_bfs_distance[x][y]
+
+        for i in range(8):
+            newx, newy = x+dx[i], y+dy[i]
+            if knight_valid_position(newx, newy, N, M, knight_moves_bfs_visited):
+                knight_moves_bfs_visited[newx][newy] = 1
+                knight_moves_bfs_distance[newx][newy] = knight_moves_bfs_distance[x][y] + 1
+                knight_q.append((newx, newy))
+
+                if newx == tgt[0] and newy == tgt[1]:
+                    return knight_moves_bfs_distance[newx][newy]
+
+N = 8
+M = 8
+knight_moves_bfs_visited = [[0 for _ in range(N+1)] for _ in range(M+1)]
+knight_moves_bfs_distance = [[0 for _ in range(N+1)] for _ in range(M+1)]
+src= (1, 1)
+target = (2,1)
+print('knight moves using bfs..')
+print(knight_moves_bfs_traversal(N, M, src, target, knight_moves_bfs_visited, knight_moves_bfs_distance))   # 3

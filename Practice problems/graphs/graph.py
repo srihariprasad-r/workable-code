@@ -230,6 +230,49 @@ edges = [
     ]
 print('shortest path using dfs:', shortest_path_build_graph(edges, N))  # [0, 1, 2, 2, 3, 3]
 
+################################ In/Out time in Graph using DFS ##################################################
+
+def in_out_build_graph(edges, N):
+    in_out_adjlist = {}
+    in_out_visited = [0] * (N)
+    in_time = [0] * (N)
+    out_time = [0] * (N)
+
+    for src, dest in edges:
+        in_out_adjlist.setdefault(src,[]).append(dest)
+        in_out_adjlist.setdefault(dest, []).append(src)
+
+    in_out_dfs(in_out_adjlist, 1, in_out_visited, in_time, out_time)
+
+    return in_time, out_time
+
+
+def in_out_dfs(alst, node, visit, in_arr, out, timer=0):
+    timer = timer + 1
+    visit[node] = 1
+    in_arr[node] = timer
+
+    for child in alst[node]:
+        if not visit[child]:
+            timer = in_out_dfs(alst, child, visit, in_arr, out, timer)
+    
+    timer = timer +  1
+    out[node] = timer
+
+    return timer
+
+N = 6
+edges = [
+        (1, 2),
+        (2,3),
+        (2,4),
+        (4, 5)
+    ]
+print('in-out time using dfs:', in_out_build_graph(edges, N))  
+
+# arrival time : [0, 1, 2, 3, 5, 6] 
+# departure time: [0, 10, 9, 4, 8, 7]
+
 ################################ Shortest Path in Graph using BFS ##################################################
 
 from collections import deque

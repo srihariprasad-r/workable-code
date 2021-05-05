@@ -17,6 +17,12 @@ def isvalid(arr, x, y, value):
     return True
 
 def sudoku(arr, x, y):
+    if x == len(arr) or y == len(arr[0]):
+        for i in range(len(arr)):
+            print(arr[i], end=" ")
+            print(sep="\n")
+        return
+
     next_i = 0
     next_j = 0
 
@@ -36,6 +42,7 @@ def sudoku(arr, x, y):
                 sudoku(arr, next_i, next_j)
                 arr[x][y] = 0
 
+
 matrix = [
     [3, 0, 6, 5, 7, 8, 4, 0, 0],
     [5, 2, 0, 0, 0, 0, 0, 0, 0],
@@ -47,4 +54,4 @@ matrix = [
     [0, 0, 0, 0, 0, 0, 0, 7, 4],
     [0, 0, 5, 2, 0, 6, 3, 0, 0]
 ]
-print(sudoku(matrix, 0, 0))
+sudoku(matrix, 0, 0)

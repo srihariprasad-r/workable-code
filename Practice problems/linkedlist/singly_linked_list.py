@@ -71,6 +71,35 @@ class List():
         prev_node.next = cur.next
         cur = None
 
+    def swap_node(self, data1, data2):
+        
+        prev1 = None
+        cur1 = self.head
+        
+        while cur1 and cur1.data != data1:
+            prev1 = cur1
+            cur1 = cur1.next
+            
+            
+        prev2 = None
+        cur2 = self.head
+        
+        while cur2 and cur2.data != data2:
+            prev2 = cur2
+            cur2 = cur2.next
+
+        if prev1:
+            prev1.next = cur2
+        else:
+            self.head = cur2
+        
+        if prev2:
+            prev2.next = cur1
+        else:
+            self.head = cur1
+            
+        cur1.next, cur2.next = cur2.next, cur1.next
+
 l = List()
 l.append('A')
 l.append('B')
@@ -81,4 +110,6 @@ l.print_list()
 l.reverse()
 l.print_list()
 l.delete('C')
+l.print_list()
+l.swap_node('A', 'B')
 l.print_list()

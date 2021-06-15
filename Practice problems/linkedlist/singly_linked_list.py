@@ -59,7 +59,17 @@ class List():
             cur_node = next_node
             
         self.head = prev_node
+
+    def delete(self, data):
+        cur = self.head
+        prev_node = None
+        
+        while cur and cur.data != data:
+            prev_node = cur
+            cur = cur.next
             
+        prev_node.next = cur.next
+        cur = None
 
 l = List()
 l.append('A')
@@ -69,4 +79,6 @@ l.append('D')
 l.prepend('D','E')
 l.print_list()
 l.reverse()
+l.print_list()
+l.delete('C')
 l.print_list()

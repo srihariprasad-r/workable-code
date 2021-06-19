@@ -100,16 +100,64 @@ class List():
             
         cur1.next, cur2.next = cur2.next, cur1.next
 
+    def merge_sorted_list(self, l2):
+        p = self.head
+        q = l2.head
+        s = None
+        new_head = None
+        
+        if p.data < q.data:
+            s = p
+            p = s.next
+        else:
+            s = q
+            q = s.next
+            
+        new_head = s
+        
+        while p and q:
+            if p.data < q.data:
+                s.next = p
+                s = p
+                p = p.next
+            else:
+                s.next = q
+                s = q
+                q = q.next
+ 
+        if not p:
+            s.next = q
+            
+        if not q:
+            s.next = p
+            
+        return new_head
+                
+
 l = List()
 l.append('A')
 l.append('B')
 l.append('C')
 l.append('D')
 l.prepend('D','E')
-l.print_list()
+# l.print_list()
 l.reverse()
-l.print_list()
+# l.print_list()
 l.delete('C')
-l.print_list()
-l.swap_node('A', 'B')
-l.print_list()
+# l.print_list()
+# l.swap_node('A', 'B')
+# l.print_list()
+# 1st List
+l1 = List()
+l1.append(1)
+l1.append(3)
+l1.append(4)
+l1.append(5)
+# 2nd List
+l2 = List()
+l2.append(2)
+l2.append(6)
+l2.append(7)
+l2.append(8)
+l1.merge_sorted_list(l2)
+l1.print_list()

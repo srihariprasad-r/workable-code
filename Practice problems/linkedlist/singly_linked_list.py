@@ -132,6 +132,45 @@ class List():
             s.next = p
             
         return new_head
+
+    def odd_even(self):
+        odd, even = Node(-1), Node(-1)
+        o = odd
+        e = even
+        tmp = Node(-1)
+        
+        fnl = tmp
+        
+        cur = self.head
+        
+        while cur:
+            if cur.data % 2 == 1:
+                odd.next = cur
+                odd = odd.next
+            else:
+                even.next = cur
+                even = even.next
+            cur = cur.next
+        
+        odd.next = None
+        even.next = None
+        
+        odd = o.next
+        even = e.next
+        
+        while odd:
+            tmp.next = odd
+            tmp = tmp.next
+            odd = odd.next
+            
+        while even:
+            tmp.next = even
+            tmp = tmp.next
+            even = even.next
+                
+        tmp.next = odd if odd else even
+                
+        return fnl.next
                 
 
 l = List()
@@ -160,4 +199,6 @@ l2.append(6)
 l2.append(7)
 l2.append(8)
 l1.merge_sorted_list(l2)
-l1.print_list()
+# l1.print_list()
+l1.odd_even()
+# l1.print_list()

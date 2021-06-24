@@ -171,6 +171,55 @@ class List():
         tmp.next = odd if odd else even
                 
         return fnl.next
+
+    def clockwise_rotate(self,k):
+        cnt = i = 0
+        t = k
+        
+        front = Node(-1)
+        back = Node(-1)
+        
+        tmp = Node(-1)
+        
+        f = tmp
+        
+        ft = front
+        bk = back
+        
+        cur_node = self.head
+        
+        while cur_node:
+            cur_node = cur_node.next
+            cnt += 1
+        
+        m = cnt
+        
+        cur_node = self.head
+        c = cur_node
+        
+        while i < cnt - k and cur_node.next:
+            cur_node = cur_node.next
+            i += 1
+            
+        while k > 0 and cur_node:
+            back.next = cur_node
+            back = back.next
+            cur_node = cur_node.next
+            k -= 1
+            
+        i = 0
+        cur_node = c
+
+        while m - t > i:
+            front.next = cur_node
+            front = front.next
+            cur_node = cur_node.next
+            i += 1
+
+        front.next = None
+        back.next = ft.next
+            
+        return bk.next
                 
 
 l = List()
@@ -202,3 +251,4 @@ l1.merge_sorted_list(l2)
 # l1.print_list()
 l1.odd_even()
 # l1.print_list()
+f = l1.clockwise_rotate(1) 

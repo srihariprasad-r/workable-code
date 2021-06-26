@@ -220,6 +220,17 @@ class List():
         back.next = ft.next
             
         return bk.next
+
+    def sum_linked_list(self):
+        cur_node = self.head
+        
+        sum_ll = 0
+        
+        while cur_node:
+            sum_ll = sum_ll + cur_node.data
+            cur_node = cur_node.next
+        
+        return sum_ll
                 
 
 l = List()
@@ -252,3 +263,4 @@ l1.merge_sorted_list(l2)
 l1.odd_even()
 # l1.print_list()
 f = l1.clockwise_rotate(1) 
+l2.sum_linked_list()

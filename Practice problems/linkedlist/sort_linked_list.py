@@ -46,12 +46,41 @@ class Node:
         tmp.next = l1 if l1 else l2
         
         return fnl.next
-                
+
+    def reverse_list(self):
+        cur = self
+        prev= None
+        
+        while cur:
+            tmp = cur.next
+            cur.next = prev
+            prev = cur
+            cur = tmp
+            
+        return prev
+
+    def remove_duplicates(self, node):
+        if node is None or node.next is None:
+            return
+            
+        if node.data == node.next.data:
+            node.next = node.next.next
+            self.remove_duplicates(node)
+        else:
+            self.remove_duplicates(node.next)
+            
+        return node            
     
 head = Node(100)
-head = Node(20, head)
+head = Node(100, head)
 head = Node(2, head)
 head = Node(25, head)
+head = Node(25, head)
+head = Node(40, head)
 # head.print_nodes()
-nd = head.merge(head)
-nd.print_nodes()
+# nd = head.merge(head)
+# nd.print_nodes()
+rd = head.remove_duplicates(head)
+# add reverse list to display in correct order
+rl = rd.reverse_list()
+rl.print_nodes()

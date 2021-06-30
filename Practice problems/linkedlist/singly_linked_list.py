@@ -231,6 +231,26 @@ class List():
             cur_node = cur_node.next
         
         return sum_ll
+
+    def get_kth_node(self, k):
+        cnt = 0
+        
+        cur_node = self.head
+        c = cur_node
+        
+        while cur_node.next:
+            cnt += 1
+            cur_node = cur_node.next
+            
+        cur_node = c
+        
+        if cur_node : k -= 1
+        
+        while k > 0 and cur_node:
+            cur_node = cur_node.next
+            k -= 1
+        
+        return cur_node.data
                 
 
 l = List()
@@ -264,3 +284,4 @@ l1.odd_even()
 # l1.print_list()
 f = l1.clockwise_rotate(1) 
 l2.sum_linked_list()
+print(l.get_kth_node(1))

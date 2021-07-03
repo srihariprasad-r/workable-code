@@ -17,6 +17,8 @@ class Tree:
     def post_order_traversal(self):
         return self.root.post_order_traversal()
 
+    def find(self, data):
+        return self.root.find(data)
 
 class Node(Tree):
     def __init__(self, data, left=None, right=None):
@@ -58,7 +60,22 @@ class Node(Tree):
             if self.left: self.left.post_order_traversal()
             if self.right: self.right.post_order_traversal()
             print(self.data)
- 
+
+    def find(self, value):
+        found = False
+            
+        while self.data:
+            if self.data == value:
+                found = True
+                break
+            elif self.data > value:
+                if self.left:
+                    self = self.left
+            else:
+                if self.right:
+                    self = self.right
+                    
+        return found
                 
 bst = Tree()
 bst.insert(8)
@@ -76,3 +93,4 @@ print('Pre-order traversal...')
 bst.pre_order_traversal()
 print('Post-order traversal...')
 bst.post_order_traversal()
+print(bst.find(6))

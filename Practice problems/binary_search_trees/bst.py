@@ -20,6 +20,9 @@ class Tree:
     def find(self, data):
         return self.root.find(self.root,data)
 
+    def get_parent_node(self, data):
+        return self.root.get_parent_node(data)
+
 class Node(Tree):
     def __init__(self, data, left=None, right=None):
         self.data = data
@@ -74,6 +77,23 @@ class Node(Tree):
                 node = node.right
                     
         return found
+
+    def get_parent_node(self, value):
+        parent = None
+        
+        node = self
+        
+        while node:
+            if node.data < value:
+                parent = node
+                node = node.right
+            elif node.data > value:
+                parent = node
+                node = node.left
+            else:
+                break
+            
+        return parent.data
                 
 bst = Tree()
 bst.insert(8)
@@ -92,3 +112,4 @@ bst.pre_order_traversal()
 print('Post-order traversal...')
 bst.post_order_traversal()
 print(bst.find(6))
+print(bst.get_parent_node(13))

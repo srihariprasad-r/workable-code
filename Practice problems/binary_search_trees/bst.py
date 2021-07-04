@@ -23,11 +23,15 @@ class Tree:
     def get_parent_node(self, data):
         return self.root.get_parent_node(data)
 
+    def is_bst(self):
+        return self.root.isBST(self.root)
+
 class Node(Tree):
     def __init__(self, data, left=None, right=None):
         self.data = data
         self.left = left
         self.right = right
+        self.prev = None
     
     def insert(self,data):
         new_node = Node(data)
@@ -94,6 +98,20 @@ class Node(Tree):
                 break
             
         return parent.data
+
+    def isBST(self, node):
+        if node is None:
+            return True
+            
+        if not self.isBST(node.left):
+            return False
+            
+        if self.prev is not None and node.data < self.prev:
+            return False
+            
+        self.prev = node.data
+        
+        return self.isBST(node.right)
                 
 bst = Tree()
 bst.insert(8)
@@ -113,3 +131,4 @@ print('Post-order traversal...')
 bst.post_order_traversal()
 print(bst.find(6))
 print(bst.get_parent_node(13))
+print(bst.is_bst())

@@ -29,12 +29,16 @@ class Tree:
     def construct_bst_inorder_traversal(self, arr, st, end):
         return self.root.construct_bst_inorder_traversal(arr, st, end)
 
+    def construct_bst_preorder_traversal(self, arr):
+        return self.root.construct_bst_preorder_traversal(arr, -float('inf'), float('inf'))
+
 class Node(Tree):
     def __init__(self, data, left=None, right=None):
         self.data = data
         self.left = left
         self.right = right
         self.prev = None
+        self.idx = 0
     
     def insert(self,data):
         new_node = Node(data)
@@ -129,6 +133,18 @@ class Node(Tree):
         
         return new_node
                 
+    def construct_bst_preorder_traversal(self, arr, low, high):
+        if self.idx >= len(arr) or arr[self.idx] < low or arr[self.idx] > high:
+            return None
+            
+        new_node = Node(arr[self.idx])
+        self.idx += 1
+        
+        new_node.left = self.construct_bst_preorder_traversal(arr, low, new_node.data)
+        new_node.right = self.construct_bst_preorder_traversal(arr, new_node.data, high)
+        
+        return new_node
+
 bst = Tree()
 bst.insert(8)
 bst.insert(3)
@@ -152,4 +168,11 @@ print(bst.is_bst())
 in_order_array = [9,12, 14, 17, 19, 23, 50, 54, 62, 72, 79]
 order_array = bst.construct_bst_inorder_traversal(in_order_array, 0, len(in_order_array)-1)
 # print newly formed BST in-order traversal
+print('New formed BST with In-order traversal...')
 order_array.in_order_traversal()
+# convert PreOrder array into BST
+pre_order_array = [30,20, 10, 15, 25, 23, 39, 35, 42]
+pre_order_bst = bst.construct_bst_preorder_traversal(pre_order_array)
+# print newly formed BST pre-order traversal
+print('New formed BST with Pre-order traversal...')
+pre_order_bst.pre_order_traversal()

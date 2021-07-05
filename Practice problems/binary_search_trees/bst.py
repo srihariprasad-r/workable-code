@@ -26,6 +26,9 @@ class Tree:
     def is_bst(self):
         return self.root.isBST(self.root)
 
+    def construct_bst_inorder_traversal(self, arr, st, end):
+        return self.root.construct_bst_inorder_traversal(arr, st, end)
+
 class Node(Tree):
     def __init__(self, data, left=None, right=None):
         self.data = data
@@ -112,6 +115,19 @@ class Node(Tree):
         self.prev = node.data
         
         return self.isBST(node.right)
+
+    def construct_bst_inorder_traversal(self, arr, st, end):
+        if st > end:
+            return None
+            
+        mid = st + (end - st)//2
+        
+        new_node = Node(arr[mid])
+        
+        new_node.left = self.construct_bst_inorder_traversal(arr, st, mid-1)
+        new_node.right = self.construct_bst_inorder_traversal(arr, mid+1, end)
+        
+        return new_node
                 
 bst = Tree()
 bst.insert(8)
@@ -132,3 +148,8 @@ bst.post_order_traversal()
 print(bst.find(6))
 print(bst.get_parent_node(13))
 print(bst.is_bst())
+# convert InOrder array into BST
+in_order_array = [9,12, 14, 17, 19, 23, 50, 54, 62, 72, 79]
+order_array = bst.construct_bst_inorder_traversal(in_order_array, 0, len(in_order_array)-1)
+# print newly formed BST in-order traversal
+order_array.in_order_traversal()

@@ -32,6 +32,9 @@ class Tree:
     def construct_bst_preorder_traversal(self, arr):
         return self.root.construct_bst_preorder_traversal(arr, -float('inf'), float('inf'))
 
+    def max_in_bst(self):
+        return self.root.max_in_bst(self.root)
+
 class Node(Tree):
     def __init__(self, data, left=None, right=None):
         self.data = data
@@ -145,6 +148,18 @@ class Node(Tree):
         
         return new_node
 
+    def max_in_bst(self, node, max_val=0):
+        if node is None:
+            return max_val
+        
+        if max_val < node.data:
+            max_val = node.data
+        
+        max_left_val = self.max_in_bst(node.left, max_val) if node.left else max_val
+        max_right_val = self.max_in_bst(node.right, max_val) if node.right else max_val
+        
+        return max(max_left_val, max_right_val)
+
 bst = Tree()
 bst.insert(8)
 bst.insert(3)
@@ -176,3 +191,5 @@ pre_order_bst = bst.construct_bst_preorder_traversal(pre_order_array)
 # print newly formed BST pre-order traversal
 print('New formed BST with Pre-order traversal...')
 pre_order_bst.pre_order_traversal()
+# find max value in BST
+print(bst.max_in_bst())

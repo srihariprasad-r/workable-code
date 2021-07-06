@@ -35,6 +35,9 @@ class Tree:
     def max_in_bst(self):
         return self.root.max_in_bst(self.root)
 
+    def remove_node(self, data):
+        return self.root.remove_node(self.root, data)
+
 class Node(Tree):
     def __init__(self, data, left=None, right=None):
         self.data = data
@@ -160,6 +163,26 @@ class Node(Tree):
         
         return max(max_left_val, max_right_val)
 
+    def remove_node(self, node,data):
+        if node is None:
+            return None
+            
+        if data > node.data:
+            node.right = self.remove_node(node.right, data)
+        elif data < node.data:
+            node.left = self.remove_node(node.left, data)
+        else:
+            if node.left and not node.right:
+                return node.left
+            elif node.right and not node.left:
+                return node.right
+            elif node.left and node.right:
+                max_val = self.max_in_bst(node.left)
+                node.data = max_val
+                node.left = self.remove_node(node.left, max_val)
+            else:
+                return None
+
 bst = Tree()
 bst.insert(8)
 bst.insert(3)
@@ -193,3 +216,5 @@ print('New formed BST with Pre-order traversal...')
 pre_order_bst.pre_order_traversal()
 # find max value in BST
 print(bst.max_in_bst())
+# remove node in BST
+rem_bst = bst.remove_node(1)

@@ -47,6 +47,9 @@ class Tree:
     def print_bst_level(self):
         return self.root.print_bst_level(self.root)
 
+    def max_depth_bst(self):
+        return self.root.max_depth_bst(self.root)
+
 class Node(Tree):
     def __init__(self, data, left=None, right=None):
         self.data = data
@@ -233,6 +236,15 @@ class Node(Tree):
         self.print_bst_level(node.left)
         self.print_bst_level(node.right)
 
+    def max_depth_bst(self, node, dp=0):
+        if node is None:
+            return dp
+        
+        left_depth = self.max_depth_bst(node.left, dp+1)
+        right_depth = self.max_depth_bst(node.right, dp+1)
+        
+        return max(left_depth, right_depth)
+
 bst = Tree()
 bst.insert(8)
 bst.insert(3)
@@ -274,3 +286,5 @@ add_bst = bst.add_node(2)
 lst = bst.extract_data()
 # print level-wise BST
 bst.print_bst_level()
+# max depth of binary search tree
+bst.max_depth_bst()

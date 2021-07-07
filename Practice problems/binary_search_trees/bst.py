@@ -41,6 +41,12 @@ class Tree:
     def add_node(self, data):
         return self.root.add_node(self.root, data)
 
+    def extract_data(self):
+        return self.root.extract_data(self.root)
+        
+    def print_bst_level(self):
+        return self.root.print_bst_level(self.root)
+
 class Node(Tree):
     def __init__(self, data, left=None, right=None):
         self.data = data
@@ -48,6 +54,7 @@ class Node(Tree):
         self.right = right
         self.prev = None
         self.idx = 0
+        self.list_items = []
     
     def insert(self,data):
         new_node = Node(data)
@@ -197,6 +204,35 @@ class Node(Tree):
         
         return node
 
+    def extract_data(self, node):
+        if node is None:
+            return
+        
+        if node:
+            self.list_items.append(node.data)
+        
+        if node.left:
+            self.extract_data(node.left)
+        
+        if node.right:
+            self.extract_data(node.right)
+            
+        return self.list_items
+        
+    
+    def print_bst_level(self, node):
+        if node is None:
+            return 
+        s = ''
+        s += str(node.left.data) if node.left else '.'
+        s += ' <- ' + str(node.data) + ' -> '
+        s += str(node.right.data) if node.right else '.'
+        
+        print(s)
+        
+        self.print_bst_level(node.left)
+        self.print_bst_level(node.right)
+
 bst = Tree()
 bst.insert(8)
 bst.insert(3)
@@ -234,3 +270,7 @@ print(bst.max_in_bst())
 rem_bst = bst.remove_node(1)
 # add node in BST
 add_bst = bst.add_node(2)
+# store values of BST into list
+lst = bst.extract_data()
+# print level-wise BST
+bst.print_bst_level()

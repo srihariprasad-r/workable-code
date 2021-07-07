@@ -38,6 +38,9 @@ class Tree:
     def remove_node(self, data):
         return self.root.remove_node(self.root, data)
 
+    def add_node(self, data):
+        return self.root.add_node(self.root, data)
+
 class Node(Tree):
     def __init__(self, data, left=None, right=None):
         self.data = data
@@ -183,6 +186,17 @@ class Node(Tree):
             else:
                 return None
 
+    def add_node(self, node, data):
+        if node is None:
+            return Node(data)
+            
+        if data > node.data:
+            node.right = self.add_node(node.right, data)
+        elif data < node.data:
+            node.left = self.add_node(node.left, data)
+        
+        return node
+
 bst = Tree()
 bst.insert(8)
 bst.insert(3)
@@ -218,3 +232,5 @@ pre_order_bst.pre_order_traversal()
 print(bst.max_in_bst())
 # remove node in BST
 rem_bst = bst.remove_node(1)
+# add node in BST
+add_bst = bst.add_node(2)

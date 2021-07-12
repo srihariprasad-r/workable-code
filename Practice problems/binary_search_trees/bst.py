@@ -50,6 +50,9 @@ class Tree:
     def max_depth_bst(self):
         return self.root.max_depth_bst(self.root)
 
+    def largest_bst(self):
+        return self.root.largest_bst(self.root)
+
 class Node(Tree):
     def __init__(self, data, left=None, right=None):
         self.data = data
@@ -58,6 +61,7 @@ class Node(Tree):
         self.prev = None
         self.idx = 0
         self.list_items = []
+        self.max_number_bst = 0
     
     def insert(self,data):
         new_node = Node(data)
@@ -245,6 +249,24 @@ class Node(Tree):
         
         return max(left_depth, right_depth)
 
+    def largest_bst(self,node, parent=None):
+        if node is None:
+            return [None, None, 0]
+            
+        left_bst = self.largest_bst(node.left,node.data)
+        left_bst_min, left_bst_max, left_bst_node_count = left_bst[0], left_bst[1], left_bst[2]
+        right_bst = self.largest_bst(node.right,node.data)
+        right_bst_min, right_bst_max, right_bst_node_count = right_bst[0], right_bst[1], right_bst[2]
+        
+        if left_bst_max and right_bst_min and node.data > left_bst_max and node.data < right_bst_min:
+            self.max_number_bst = max(self.max_number_bst, left_bst_node_count + right_bst_node_count + 1)
+            if parent is None:
+                return self.max_number_bst
+            else:
+                return [left_bst_max, right_bst_min, self.max_number_bst]
+        else:
+            return [node.data, node.data, 1]
+
 bst = Tree()
 bst.insert(8)
 bst.insert(3)
@@ -288,3 +310,5 @@ lst = bst.extract_data()
 bst.print_bst_level()
 # max depth of binary search tree
 bst.max_depth_bst()
+# number of nodes in largest bst subtree
+bst.largest_bst()

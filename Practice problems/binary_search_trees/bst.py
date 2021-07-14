@@ -59,6 +59,9 @@ class Tree:
     def in_order_non_recursive(self):
         return self.root.InOrder_nonRecursive(self.root)
 
+    def level_order_non_recursive(self):
+        return self.root.leveltraversal(self.root)
+
 class Node(Tree):
     def __init__(self, data, left=None, right=None):
         self.data = data
@@ -310,6 +313,25 @@ class Node(Tree):
         else:
             return [node.data, node.data, 1]
 
+    def leveltraversal(self, node):
+        if node is None:
+            return
+        
+        q = []
+        q.append(node)
+        
+        res = []
+        
+        while q:
+            node = q.pop()
+            res.append(node.data)
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+                
+        return res
+
 bst = Tree()
 bst.insert(8)
 bst.insert(3)
@@ -359,3 +381,5 @@ bst.largest_bst()
 print(bst.in_order_non_recursive())
 # Pre order traversal in non recursive order
 print(bst.pre_order_non_recursive())
+# level order traversal
+print(bst.level_order_non_recursive())

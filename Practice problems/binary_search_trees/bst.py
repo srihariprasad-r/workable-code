@@ -53,6 +53,12 @@ class Tree:
     def largest_bst(self):
         return self.root.largest_bst(self.root)
 
+    def pre_order_non_recursive(self):
+        return self.root.preOrder_nonRecursive(self.root)
+        
+    def in_order_non_recursive(self):
+        return self.root.InOrder_nonRecursive(self.root)
+
 class Node(Tree):
     def __init__(self, data, left=None, right=None):
         self.data = data
@@ -97,6 +103,43 @@ class Node(Tree):
             if self.left: self.left.post_order_traversal()
             if self.right: self.right.post_order_traversal()
             print(self.data)
+
+    def preOrder_nonRecursive(self,node):
+        if node is None:
+            return
+        
+        res = []
+        stck = []
+        stck.append(node)
+        
+        while stck and node:
+            node = stck.pop()
+            res.append(node.data)
+            if node.right:
+                stck.append(node.right)
+            if node.left:
+                stck.append(node.left)
+        
+        return res
+        
+    def InOrder_nonRecursive(self,node):
+        if node is None:
+            return
+        
+        res = []
+        stck = []
+        
+        while stck or node:
+            if node:
+                stck.append(node)
+                node = node.left
+            else:
+                node = stck.pop()
+                res.append(node.data)
+                node = node.right
+                
+        
+        return res
 
     def find(self, node, value):
         found = False
@@ -312,3 +355,7 @@ bst.print_bst_level()
 bst.max_depth_bst()
 # number of nodes in largest bst subtree
 bst.largest_bst()
+# In order traversal in non recursive order
+print(bst.in_order_non_recursive())
+# Pre order traversal in non recursive order
+print(bst.pre_order_non_recursive())

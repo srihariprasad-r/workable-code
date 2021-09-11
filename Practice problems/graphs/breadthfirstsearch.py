@@ -114,3 +114,45 @@ edges = [
 ]
 print(build_graph(edges, N))  # [[0, 3, 4, 5], [0, 1, 2, 4, 5]]
     
+#=====================================================================================================#
+# Check if undirected graph is strongly connected
+
+def build_graph(edges, N):
+    adj_list = {}
+    visited = [0] * N
+    count = 0
+
+    for src, dest in edges:
+        adj_list.setdefault(src, []).append(dest)
+        adj_list.setdefault(dest, []).append(src)
+
+    for i in range(N):
+        if not visited[i]:
+            count += 1
+            visited = dfs(adj_list, i, visited)
+
+    return True if count == 1 else False        
+
+
+def dfs(adj_list, src, visited):
+    if not visited[src]:
+        visited[src] = 1
+
+        child = adj_list[src]
+        for c in child:
+            dfs(adj_list, c, visited)
+
+    return visited
+
+
+N = 9
+edges = [
+    (0, 1),
+    (1, 2),
+    (0, 3),
+    (3, 4),
+    (4, 5),
+    (7, 7),
+    (6, 8)
+]
+print(build_graph(edges, N))  # False

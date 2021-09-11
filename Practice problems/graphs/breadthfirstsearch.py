@@ -61,5 +61,56 @@ g.addEdge(2,3)
 g.addEdge(3,2)
 print(g.executeBFS())
 
+#=====================================================================================================#
+# Print all paths from source to destination in undirected graph
 
+from collections import deque
+q = deque()
 
+def build_graph(edges, N):
+    adj_list = {}
+    visited = [0] * N
+    
+    for src, dest in edges:
+        adj_list.setdefault(src, []).append(dest)
+        
+    return bfs(adj_list, 0, visited, 5)
+    
+def bfs(adj_list, src, visited, tgt, res =[]):
+    q.appendleft([src])
+    
+    while len(q) > 0:
+        el = q.pop()
+ 
+        lst = el[-1]
+
+        if lst == tgt:
+            res.append(el)  # when dest is reached, append it to result as path is found
+            
+        child = adj_list[lst]
+            
+        for c in child:
+            if not visited[c]:
+                q.appendleft(el + [c])      # new path is discovered
+            
+        visited[lst] = 1
+            
+    return res
+
+N = 6
+edges = [
+    (0, 1),
+    (0, 3),
+    (1, 0),
+    (1, 2),
+    (2, 1),
+    (2, 4),
+    (3, 0),
+    (3, 4),
+    (4, 2),
+    (4, 3),
+    (4, 5),
+    (5, 4)
+]
+print(build_graph(edges, N))  # [[0, 3, 4, 5], [0, 1, 2, 4, 5]]
+    

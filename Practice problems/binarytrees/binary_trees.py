@@ -20,6 +20,8 @@ class BinaryTree:
     def print_left_view_binary_tree(self):
         return self.root.print_left_view_binary_tree(node=self.root)
 
+    def print_right_view_binary_tree(self):
+        return self.root.print_right_view_binary_tree(node=self.root)
 
 class Node(BinaryTree):
     def __init__(self, data, left=None, right=None):
@@ -90,6 +92,19 @@ class Node(BinaryTree):
 
         return [k for k in hash_map.values()]
 
+    def print_right_view_binary_tree(self, node=None, level=0, maxlevel=0, hash_map={}):
+        if node is None:
+            return
+
+        if level not in hash_map:
+            hash_map[level] = node.data
+            level += 1
+
+        self.print_right_view_binary_tree(node.right, level, hash_map)
+        self.print_right_view_binary_tree(node.left, level, hash_map)
+
+        return [k for k in hash_map.values()]
+
 
 bt = BinaryTree()
 bt.insert_to_tree(2)
@@ -103,4 +118,5 @@ bt.insert_to_tree(9, 5, 'right')
 # bt.in_order_traversal()
 # print('Pre order traversal')
 #bt.pre_order_traversal()
-print(bt.print_left_view_binary_tree())
+# print(bt.print_left_view_binary_tree())
+print(bt.print_right_view_binary_tree())

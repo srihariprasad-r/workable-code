@@ -26,6 +26,9 @@ class BinaryTree:
     def inorder_without_recursion(self):
         return self.root.inorder_without_recursion()
 
+    def preorder_without_recursion(self):
+        return self.root.preorder_without_recursion()
+
 class Node(BinaryTree):
     def __init__(self, data, left=None, right=None):
         self.data = data
@@ -130,6 +133,26 @@ class Node(BinaryTree):
 
         return res
 
+    def preorder_without_recursion(self):
+        stck = []
+        res = []
+
+        if self is None:
+            return
+
+        stck.append(self)
+
+        while len(stck) > 0:
+            el = stck.pop()
+            res.append(el.data)
+
+            if el.right:
+                stck.append(el.right)
+            if el.left:
+                stck.append(el.left)
+
+        return res
+
 bt = BinaryTree()
 bt.insert_to_tree(2)
 bt.insert_to_tree(7)
@@ -144,4 +167,5 @@ bt.insert_to_tree(9, 5, 'right')
 # bt.pre_order_traversal()
 # print(bt.print_left_view_binary_tree())
 # print(bt.print_right_view_binary_tree())
-print(bt.inorder_without_recursion())
+# print(bt.inorder_without_recursion())
+print(bt.preorder_without_recursion())

@@ -23,6 +23,9 @@ class BinaryTree:
     def print_right_view_binary_tree(self):
         return self.root.print_right_view_binary_tree(node=self.root)
 
+    def inorder_without_recursion(self):
+        return self.root.inorder_without_recursion()
+
 class Node(BinaryTree):
     def __init__(self, data, left=None, right=None):
         self.data = data
@@ -105,6 +108,27 @@ class Node(BinaryTree):
 
         return [k for k in hash_map.values()]
 
+    def inorder_without_recursion(self):
+        stck = []
+
+        res = []
+        if self is None:
+            return
+
+        stck.append(self)
+
+        while len(stck) > 0:
+            if self:
+                if self.left:
+                    stck.append(self.left)
+                self = self.left
+            else:
+                el = stck.pop()
+                res.append(el.data)
+                if el.right:
+                    stck.append(el.right)
+
+        return res
 
 bt = BinaryTree()
 bt.insert_to_tree(2)
@@ -117,6 +141,7 @@ bt.insert_to_tree(9, 5, 'right')
 # print('In-order traversal')
 # bt.in_order_traversal()
 # print('Pre order traversal')
-#bt.pre_order_traversal()
+# bt.pre_order_traversal()
 # print(bt.print_left_view_binary_tree())
-print(bt.print_right_view_binary_tree())
+# print(bt.print_right_view_binary_tree())
+print(bt.inorder_without_recursion())

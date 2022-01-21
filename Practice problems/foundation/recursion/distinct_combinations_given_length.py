@@ -1,19 +1,20 @@
-def recursion(s,k):
-    def solution(idx, s, k, used, ans='', res=[]):
-        if len(ans) == k:
-            res.append([int(ans[i]) for i in range(len(ans))])
-            return
-        
-        for i in range(idx, len(s)):
-            used[i] = True
-            solution(idx+1, s, k, used, ans + s[i], res)
-            used[i] = False
-        
-        return res
-    
-    used = [False for _ in range(len(s))]
-    return solution(0, s, k, used)
-    
-s = '123'
-k = 2
-print(recursion(s,k)) #    [[1, 2], [1, 3], [2, 2], [2, 3], [3, 2], [3, 3]]
+def recursion(idx, n, k, ans=[], res=[]):
+    if idx > n or k < 0:
+        return
+
+    if k == 0:
+        if ans not in res:
+            res.append(ans)
+        return
+
+    for i in range(idx, n+1):
+        recursion(idx, n,  k-i, ans + [i], res)
+        for j in range(idx+1, n+1):
+            recursion(idx+1, n, k-i-j, ans + [i] + [j], res)
+
+    return res
+
+
+n = 5
+k = 7
+print(recursion(1, n, k))

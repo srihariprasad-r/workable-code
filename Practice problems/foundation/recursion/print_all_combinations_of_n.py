@@ -24,3 +24,25 @@ def recursion(n, used):
 n = 5
 used = [False]*(n+1)
 print(recursion(n, used)) # [[1,4], [3,2],[5]]
+
+
+# Method 2 - prints all combinations
+
+def recursion(idx, n, tgt, ans=[], res=[]):
+    if idx > n or tgt < 0:
+        return
+
+    if tgt == 0:
+        if ans not in res:
+            res.append(ans)
+        return
+
+    for i in range(idx, n+1):
+        recursion(i + 1, n, tgt-i, ans + [i], res)
+        recursion(i, n, tgt - i, ans + [i], res)
+
+    return res
+
+
+n = 5
+print(recursion(1, n, n))

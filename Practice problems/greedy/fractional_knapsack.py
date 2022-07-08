@@ -6,6 +6,8 @@ def fractionalKnapsack(profit, weight, capacity):
         arr[i] = (profit[i], weight[i])
 
     # sort based on profit/weight ratio
+    # other approach is to sort by maximum profit
+    # sort by min weight
     sorted_arr = sorted(arr, key=lambda e: -(e[0]/e[1]))
 
     for i in range(len(sorted_arr)):
@@ -15,6 +17,7 @@ def fractionalKnapsack(profit, weight, capacity):
             capacity -= cur_weight
             res += cur_profit
         else:
+            # if weight is higher than capcity, fraction the profit based on capcity and exit
             res += cur_profit * (capacity/cur_weight)
             break
 

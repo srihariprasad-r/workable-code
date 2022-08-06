@@ -1,3 +1,4 @@
+# https://labuladong.gitbook.io/algo-en/iii.-algorithmic-thinking/detailedbinarysearch
 def leftsearch(arr, target):
     left = 0
     right = len(arr)

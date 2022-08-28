@@ -37,7 +37,7 @@ Feature: Some basic PySpark examples
       | 11     | Susan               | Chemistry           |
       | 12     | Mark                | Chemistry           |
     When I find maximum score in "students"
-    Then the table "results" contains
+    Then the table "max_results" shows maximum score rows
       | id:Int   | name:String      | sid:String   | score:Int  |      
       | 1        | Fred             | 1            | 100        | 
-      | 9        | Fred             | 3            | 100        |   
+      | 9        | Fred             | 3            | 100        |        

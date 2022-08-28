@@ -1,5 +1,6 @@
 from behave import *
 from pyspark.sql import types as T
+from pyspark.sql.functions import col
 
 def typeMapping(input):
     type = {'String': T.StringType(),
@@ -41,7 +42,9 @@ def step_impl(context):
 def step_impl(context, table_name):
     df = context.spark.sql(
         "select * from {0}".format(table_name))
-    x = df.groupBy().max().collect()[0]
+    x = df.groupBy().max().select(col('max(score)').alias('score')).collect()[0]
+    df = df.filter(col('score') == x['score'])
+    df.createOrReplaceTempView("max_results")
 
 
 @given(u'a table called "{table_name}" containing')
@@ -54,6 +57,16 @@ def step_impl(context, table_name):
     expected_df = table_to_spark(context.spark, context.table)
     actual_df = context.spark.sql("select * from {0}".format(table_name))
 
+    assert (expected_df.schema == actual_df.schema)
+    assert (expected_df.subtract(actual_df).count() == 0)
+    assert (actual_df.subtract(expected_df).count() == 0)
+
+
+@then(u'the table "{table_name}" shows maximum score rows')
+def step_impl(context, table_name):
+    expected_df = table_to_spark(context.spark, context.table)
+    actual_df = context.spark.sql("select * from {0}".format(table_name))
+    print(actual_df.schema)
     assert (expected_df.schema == actual_df.schema)
     assert (expected_df.subtract(actual_df).count() == 0)
     assert (actual_df.subtract(expected_df).count() == 0)

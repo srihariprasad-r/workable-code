@@ -13,3 +13,8 @@ def step_impl(context):
         .config('spark.driver.maxResultSize', '10G')
         .getOrCreate()
     )
+
+
+def after_all(context):
+    if 'spark' in context:
+        context.spark.sparkContext.stop()

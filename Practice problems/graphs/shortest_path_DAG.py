@@ -52,7 +52,36 @@ def dfs(node):
     
     return False
     
-
 for i in range(1, 11):
     if not visited[i]:
         if dfs(i): print(True)
+
+# cycle in undirected graph
+import collections
+
+edges = [(1,2),(1,3),(2,5),(5,7),(3,6),(6,7),(3,4)]
+
+lst = collections.defaultdict(list)
+visited = [0]*8
+
+for e in edges:
+    lst[e[0]].append(e[1])
+    lst[e[1]].append(e[0])
+
+def dfs(node, parent):
+    visited[node] = 1
+    
+    for n in lst[node]:
+        if not visited[n]:
+            if dfs(n, node):
+                return True
+        elif parent != n:
+            # print(node, parent, n)
+            return True
+    
+    return False
+    
+for i in range(1, 8):
+    if not visited[i]: 
+        if dfs(i, -1): 
+            print(True)

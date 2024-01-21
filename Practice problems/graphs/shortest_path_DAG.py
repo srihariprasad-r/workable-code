@@ -23,3 +23,36 @@ while l:
             
 print(distance)
 # [0, 2, 3, 6, 1, 5]
+
+
+# cycle in DAG
+import collections
+
+edges = [(1,2),(8,2),(8,9),(9,10),(10, 8), (2,3),(3,7),(3,4),(7,5),(4,5),(5,6)]
+
+lst = collections.defaultdict(list)
+visited = [0]*11
+path = [0]*11
+
+for e in edges:
+    lst[e[0]].append(e[1])
+
+def dfs(node):
+    visited[node] = 1
+    path[node] = 1
+    
+    for n in lst[node]:
+        if not visited[n]:
+            if dfs(n):
+                return True
+        elif path[n]:
+            return True
+    
+    path[node] = 0
+    
+    return False
+    
+
+for i in range(1, 11):
+    if not visited[i]:
+        if dfs(i): print(True)

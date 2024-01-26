@@ -60,6 +60,35 @@ for i in range(1, 8):
             print(True)
 
 # Directed graph - shortest path
+# without PQ:
+import collections
+from collections import deque
+
+edges = [[0,1,2],[0,4,1],[4,5,4],[4,2,2],[1,2,3],[2,3,6],[5,3,1]]
+
+lst = collections.defaultdict(list)
+distance = [float('inf')]*6
+
+q = deque()
+
+for e in edges:
+    lst[e[0]].append((e[1],e[2]))
+    
+q.append(0)
+distance[0] = 0
+
+while q:
+    node = q.popleft()
+    
+    for n in lst[node]:
+        if distance[node] + n[1] < distance[n[0]]:
+            distance[n[0]] = distance[node] + n[1]
+            q.append(n[0])
+            
+print(distance)
+# [0, 2, 3, 6, 1, 5] 
+
+# with PQ
 import collections
 import heapq
 

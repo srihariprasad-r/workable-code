@@ -146,3 +146,40 @@ while l:
             
 print(distance)
 # [4,3,0]
+
+# path with minimum effort
+# issue
+import collections
+from collections import deque
+
+arr = [
+    [1,2,2],
+    [3,8,2],
+    [5,3,5]
+]
+
+directions = [(0, -1), (0, 1), (-1,0),(1,0)]
+mx = float('inf')
+visited = [[0 for _ in range(len(arr[0]))] for _ in range(len(arr))]
+
+q = deque()
+q.append((0, (0, 0)))
+visited[0][0] = 1
+
+while q:
+    d, a = q.popleft()
+    
+    if a[0] == len(arr)-1 and a[1] == len(arr[0])-1:
+        mx = min(mx, d)
+    
+    for d in directions:
+        newx = a[0] + d[0]
+        newy = a[1] + d[1]
+        if newx > -1 and newx < len(arr) \
+            and newy > -1 and newy < len(arr[0]) \
+            and visited[newx][newy] == 0:
+                q.append((abs(arr[a[0]][a[1]]- arr[newx][newy]), (newx, newy)))
+                visited[newx][newy] = 1
+                
+print(mx)
+# 3

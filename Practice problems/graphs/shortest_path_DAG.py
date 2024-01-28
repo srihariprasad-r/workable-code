@@ -183,3 +183,43 @@ while q:
                 
 print(mx)
 # 3
+
+# shortest distance - maze
+from collections import deque
+
+grid = [
+    [1, 1, 1, 1],
+    [1, 1, 0, 1],
+    [1, 1, 1, 1],
+    [1, 1, 0, 1],
+    [1, 0, 0, 1]
+]
+directions = [(0, -1), (0, 1), (-1, 0), (1, 0)]
+visited = [[0 for _ in range(len(grid[0]))] for _ in range(len(grid))]
+
+mx = float('inf')
+
+s = (0,1)
+dt = (1,1)
+
+q = deque()
+q.append((s, 0))
+visited[s[0]][s[1]] = 1
+
+while q:
+    a, ds = q.popleft()
+    
+    if a[0] == dt[0] and a[1] == dt[1] and grid[d[0]][d[1]] == 1:
+        mx = min(mx, ds+1)
+    
+    for d in directions:
+        newx = a[0] + d[0]
+        newy = a[1] + d[1]
+        if newx > -1 and newx < len(grid) and newy > -1 and newy < len(grid[0]):
+            if visited[newx][newy] == 0:
+                if grid[newx][newy] == 1:
+                    q.append(((newx, newy), ds + 1))
+                    visited[newx][newy] = 1
+                    
+print(mx)
+# 2

@@ -103,3 +103,30 @@ def psum(arr, l, r):
     return prefix[r] - prefix[l-1]
         
 print(psum(arr,l,r))
+
+# subarray sum < k
+
+arr = [2,4,-3,2,5,-1,2]
+k = 3
+
+prefix = [0]*(len(arr)+1)
+
+import collections
+d = collections.defaultdict(int)
+d[0] = 1
+
+def subarraysum(arr,k):
+    c = 0
+    for idx in range(1,len(prefix)):
+        prefix[idx] = prefix[idx-1] + arr[idx-1]
+    
+    for i in range(1,len(prefix)):
+        if prefix[i] - k in d:
+            d[prefix[i] - k] += 1
+            c += 1
+        else:
+            d[prefix[i]] = 1
+            
+    return c
+        
+print(subarraysum(arr,k))

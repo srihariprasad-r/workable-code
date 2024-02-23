@@ -87,3 +87,19 @@ def twosum(arr):
             d[x] = idx
         
 print(twosum(arr))
+
+# prefix sum
+arr = [2,4,3,1,6,5,7,3,2]
+l = 4
+r = 5
+
+prefix = [0]*(len(arr)+1)
+
+
+def psum(arr, l, r):
+    for idx in range(1,len(prefix)):
+        prefix[idx] = prefix[idx-1] + arr[idx-1]
+        
+    return prefix[r] - prefix[l-1]
+        
+print(psum(arr,l,r))

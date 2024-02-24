@@ -27,7 +27,7 @@ def searcharray(arr,tgt):
     
 print(searcharray(arr,tgt))
 
-# single element (wrong submission)
+# single element
 
 arr = [3,3,7,7,10,11,11]
 
@@ -42,9 +42,15 @@ def single_element(arr):
             return mid
         
         if mid % 2:
-            l = mid + 1
+            if arr[mid] == arr[mid-1]:
+                l = mid + 1
+            else:
+                r = mid - 1
         else :
-            r = mid
+            if arr[mid] == arr[mid+1]:  
+                r = mid - 1
+            else:
+                l = mid + 1
 
     
 print(single_element(arr))

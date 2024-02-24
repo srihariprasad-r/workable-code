@@ -130,3 +130,21 @@ def subarraysum(arr,k):
     return c
         
 print(subarraysum(arr,k))
+
+# longest consective sequence
+nums = [0,3,7,2,5,8,4,6,0,1]
+
+
+def longest_sequence(arr):
+    c = 0
+
+    for a in arr:
+        l = 0
+        if a - 1 not in nums:
+            while a + l in nums:
+                l += 1
+            c = max(c, l)
+        
+    return c
+
+print(longest_sequence(nums))

@@ -134,7 +134,6 @@ print(subarraysum(arr,k))
 # longest consective sequence
 nums = [0,3,7,2,5,8,4,6,0,1]
 
-
 def longest_sequence(arr):
     c = 0
 
@@ -148,3 +147,22 @@ def longest_sequence(arr):
     return c
 
 print(longest_sequence(nums))
+
+# two sum
+# question link: https://www.geeksforgeeks.org/check-if-pair-with-given-sum-exists-in-array/
+arr = [0, -1, 2, -3, 1]
+v = -2
+
+import collections
+d = collections.defaultdict(int)
+
+def sumarray(t):
+    for i in range(len(arr)):
+        if t - arr[i] in d:
+            return True
+        else:
+            d[arr[i]] = 1
+            
+    return False
+    
+print(sumarray(v))

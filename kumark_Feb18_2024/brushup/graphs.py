@@ -25,3 +25,37 @@ def shortestdistance(node):
 shortestdistance(src)
     
 print(distance)
+
+# bfs traversal
+
+a = [(1,2),(1,3),(2,4),(2,5),(3,6),(3,7),(5,8)]
+src = 1
+
+import collections
+
+visited = [0]* 9
+res = []
+
+d = collections.defaultdict(list)
+
+for k in a:
+    d[k[0]].append(k[1])
+    d[k[1]].append(k[0])
+  
+
+def dfs(node):
+    if visited[node]:
+        return
+    
+    res.append(node)
+    visited[node] = 1
+    
+    for n in d[node]:
+        if not visited[n]:
+            dfs(n)
+                
+    return res
+    
+dfs(src)
+    
+print(res)

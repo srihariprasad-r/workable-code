@@ -259,3 +259,28 @@ def uniquechar(s):
     return mx
     
 print(uniquechar(s))
+
+# question link: https://leetcode.com/problems/find-common-characters/
+words = ["bella","label","roller"]
+
+def commonchars(words):
+    chr_array = [float('inf')] * 26
+    res = []
+    
+    for s in words:
+        s_array = [0] * 26
+        for c in s:
+            s_array[ord(c)-ord('a')] += 1
+            
+        for idx, v in enumerate(s_array):
+            chr_array[idx] = min(s_array[idx], chr_array[idx])
+            
+    for idx, c in enumerate(chr_array):
+        while c > 0:
+            res.append(chr(idx + ord('a')))
+            c -= 1
+        
+    return res
+        
+    
+print(commonchars(words))

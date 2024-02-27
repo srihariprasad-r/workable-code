@@ -282,5 +282,23 @@ def commonchars(words):
         
     return res
         
-    
 print(commonchars(words))
+
+# question link: https://www.geeksforgeeks.org/count-pairs-with-given-sum/
+arr = [1, 5, 7, -1, 5]
+k = 6
+
+import collections
+d = collections.defaultdict(int)
+
+def countpairs(arr, k):
+    res = 0
+    for c in arr:
+        if abs(c - k) in d:
+            res += 1
+        else:
+            d[c] += 1
+    
+    return res
+            
+print(countpairs(arr,k))

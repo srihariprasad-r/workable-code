@@ -227,3 +227,31 @@ def smallestlengthsubarray(arr, k):
     return cnt
     
 print(smallestlengthsubarray(arr, k))
+
+# question link: https://www.geeksforgeeks.org/count-number-subarrays-given-xor/
+arr = [4, 2, 2, 6, 4]
+k = 6
+
+import collections
+
+prefix = [0] * (len(arr)+1)
+d = collections.defaultdict(int)
+
+
+def bitwise_xor_subarrays(arr, k):
+    cnt = 0
+    for i in range(1, len(arr)):
+        prefix[i] = prefix[i-1] ^ arr[i-1]
+        
+    for i in range(1, len(prefix)):
+        if prefix[i] == k:
+            cnt += 1
+    
+        if prefix[i] ^ k in d:
+            cnt += d[prefix[i]^k]
+            
+        d[prefix[i]] += 1
+        
+    return cnt 
+    
+print(bitwise_xor_subarrays(arr, k))

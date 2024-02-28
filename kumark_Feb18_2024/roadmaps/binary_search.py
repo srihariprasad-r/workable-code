@@ -35,3 +35,22 @@ class Solution:
             return -1 if arr[r-1] != k else r - 1
 
         return [firstpos(nums, target), lastpos(nums, target)]
+
+# question link: https://leetcode.com/problems/search-insert-position/
+class Solution:
+    def searchInsert(self, arr, target):
+        l = 0
+        r = len(arr)
+
+        while l < r:
+            mid = l + (r - l) // 2
+
+            if arr[mid] == target:
+                return mid
+
+            if arr[mid] < target:
+                l = mid + 1
+            else:
+                r = mid
+
+        return l      

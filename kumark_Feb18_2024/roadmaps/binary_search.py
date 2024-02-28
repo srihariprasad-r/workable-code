@@ -1,38 +1,37 @@
 # question link: https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
-# wrong submission
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        if not nums or len(nums) < 2: return [-1,-1]
+        if not nums: return [-1,-1]
+        if len(nums) == 1: 
+            if nums[-1] == target: return [0,0]
+            else: return [-1,-1]
+        
         def firstpos(arr, k):
             l = 0
             r = len(arr) - 1
             
             while l < r:
                 mid = l + (r-l)//2
-  
-                if arr[mid] == k: return mid
-                
-                if arr[mid] > k:
-                    r = mid - 1
-                else:
-                    l = mid + 1
-                    
-            return -1 if arr[l] != k else l
 
+                if arr[mid] < k:
+                    l = mid + 1
+                else:
+                    r = mid
+
+            return -1 if arr[l] != k else l
+            
         def lastpos(arr, k):
             l = 0
-            r = len(arr) - 1
+            r = len(arr)
             
             while l < r:
                 mid = l + (r-l)//2
-
-                if arr[mid] == k: return mid
-                
+ 
                 if arr[mid] > k:
                     r = mid
                 else:
                     l = mid + 1
-                    
-            return -1 if arr[r] != k else r
+
+            return -1 if arr[r-1] != k else r - 1
 
         return [firstpos(nums, target), lastpos(nums, target)]

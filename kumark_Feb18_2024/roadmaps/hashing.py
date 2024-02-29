@@ -282,3 +282,59 @@ def prefixcommon(arr1, arr2):
     return C   
     
 print(prefixcommon(A, B))
+
+# question link: www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809
+A = [10, 5, 2, 7, 1, 9]
+k = 15
+
+prefix = [0] * (len(A)+1)
+
+import collections
+
+d = collections.defaultdict(list)
+
+def longestsubarraysum(arr1):
+    mx = float('-inf')
+    for idx in range(len(arr1)):
+        prefix[idx] = prefix[idx-1] + A[idx-1]
+            
+    for i in range(1, len(prefix)):
+        j = 0
+        s = 0
+        while j < i:
+            s = prefix[i] - prefix[j]
+            if s == k:
+                mx = max(mx, i - j)
+            j += 1
+    
+    return mx  
+    
+print(longestsubarraysum(A))
+
+# question link: https://www.desiqna.in/13267/microsoft-coding-oa-sde-1-may-3-2023
+arr = [51, 32, 43]
+
+import collections
+d = collections.defaultdict(int)
+
+def digitsum(s):
+    m = 0
+    
+    while s > 0:
+        m += s % 10
+        s = s // 10
+        
+    return m
+
+def solution(arr):
+    mx = float('-inf')
+    for i in range(len(arr)):
+        f = digitsum(arr[i])
+        if f in d:
+            mx = max(mx, arr[i] + d[f])
+        else:
+            d[f] = arr[i]
+        
+    return mx if mx != float('-inf') else -1
+    
+print(solution(arr))

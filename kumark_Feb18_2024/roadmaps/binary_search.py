@@ -54,30 +54,3 @@ class Solution:
                 r = mid
 
         return l      
-
-# question link: https://leetcode.com/contest/biweekly-contest-103/problems/find-the-prefix-common-array-of-two-arrays/
-A = [2,3,1]
-B = [3,1,2]
-C = [0] * len(A)
-
-import collections
-
-d = collections.defaultdict(list)
-
-def prefixcommon(arr1, arr2):
-    for idx, x in enumerate(arr1):
-        c = idx
-        while c > -1:
-            d[idx].append(arr1[c])
-            c -= 1
-            
-    for i in range(len(arr2)):
-        ct = 0
-        for j in range(i+1):
-            if arr2[j] in d[i]:
-                ct += 1
-        C[i] = ct
-    
-    return C   
-    
-print(prefixcommon(A, B))

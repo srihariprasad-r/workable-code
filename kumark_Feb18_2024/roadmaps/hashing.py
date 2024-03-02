@@ -360,3 +360,47 @@ class Solution:
                 ans += d[s-k]
 
         return ans
+
+# question link: https://leetcode.com/discuss/interview-question/3114099/AMAZON-OA-(INTERN-2024)
+import collections
+d = collections.defaultdict(int)
+
+s= 'mononom'
+t = 'mon'
+
+def targetword(s, t):
+    ans = float('inf')
+    for c in s:
+        d[c] += 1
+        
+    for c in t:
+        if d[c] > 0:
+            ans = min(ans, d[c])
+            d[c] -= 1
+                
+    return ans
+    
+print(targetword(s, t))
+
+# problem link: https://www.desiqna.in/16114/visa-oa-sde-intern-ctc-30-lac-27th-oct
+import collections
+d = collections.defaultdict(int)
+
+lamps = [[1,7],[5,11],[7,9]]
+points = [7, 1, 5, 10, 9, 15]
+
+p = [0] * 20
+pt = []
+
+def lampslight(s):
+    ans = float('inf')
+    for i in range(len(s)):
+        for j in range(s[i][0], s[i][1]+1):
+            p[j] += 1
+    
+    for k in range(len(points)):
+        pt.append(p[points[k]])
+        
+    return pt
+
+print(lampslight(lamps))

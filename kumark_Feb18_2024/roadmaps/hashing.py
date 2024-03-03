@@ -404,3 +404,36 @@ def lampslight(s):
     return pt
 
 print(lampslight(lamps))
+
+# problem link: https://www.desiqna.in/16189/backend-engineer-hackerrank-online-test
+# need to revisit as 'k' is not used
+events = ['Alex sleep 00:00 08:00', 'Sam sleep 07:00 13:00', 'Alex sleep 12:30 13:59']
+
+t = []
+booked = [0]* 23
+
+import collections
+d = collections.defaultdict(list)
+
+def meetingassistant(events):
+    for e in events:
+        t.append((e.split(' ')[-2],e.split(' ')[-1]))
+        
+    for a in t:
+        s_hour = int(a[0].split(':')[0])
+        e_hour = int(a[1].split(':')[0])
+        for i in range(s_hour, e_hour + 1): booked[i] += 1
+    
+    l = 0
+    r = len(booked)
+    
+    while l < r:
+        mid = l + (r - l)// 2
+        
+        if booked[mid] > 0:
+            l = mid + 1
+        else:
+            r = mid
+        
+        
+    return r if r < 25 else -1 

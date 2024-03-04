@@ -435,5 +435,31 @@ def meetingassistant(events):
         else:
             r = mid
         
-        
     return r if r < 25 else -1 
+
+# question link: https://docs.google.com/document/d/1enINelZDWXi3ZLSLH5jbN-zXCzcWnrXFQ0RRUhJl6PY/edit
+# count of shortest length subarrays with sum k
+arr = [10,5,2,7,1,9,8,7]
+k = 15
+
+prefix = [0] * (len(arr)+1)
+
+ans = float('inf')
+
+import collections
+d = collections.defaultdict(int)
+occurances = collections.defaultdict(int)
+
+for i in range(1,len(prefix)):
+    prefix[i] = prefix[i-1] + arr[i-1]
+    
+last_seen = 0
+for i in range(1, len(prefix)):
+    j = 0
+    while j < i:
+        if prefix[i] - prefix[j] == k:
+            d[i-j] += 1
+            ans = min(ans, i-j)
+        j += 1
+        
+print(d[ans])

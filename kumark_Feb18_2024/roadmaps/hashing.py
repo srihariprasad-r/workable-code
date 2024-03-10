@@ -463,3 +463,34 @@ for i in range(1, len(prefix)):
         j += 1
         
 print(d[ans])
+
+# question link: https://www.desiqna.in/15920/microsoft-oa-september-2023-freshers-hiring-sde1-set-115
+# wrong submission
+arr = [4,2,5,4,3,5,1,4,2,7]
+x = 3
+y = 2
+
+# index issue
+# arr = [10,3, 4,7]
+# x = 2
+# y = 3
+
+prefix = [0] * (len(arr)-y-x+1)
+
+def mincost_rehabs(arr, x, y):
+    min_cost = float('inf')
+    for i in range(1, len(arr)-y-x+1):
+        j = i + y-1
+        cnt = 1
+        is_loop = False
+        while cnt < x and j < len(arr):
+            prefix[i] += arr[j]
+            is_loop = True
+            j += y
+            cnt += 1
+        if is_loop:prefix[i] += arr[i-1]
+        min_cost = min(min_cost, prefix[i])
+            
+    return min_cost
+    
+print(mincost_rehabs(arr, x, y))

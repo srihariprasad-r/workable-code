@@ -494,3 +494,21 @@ def mincost_rehabs(arr, x, y):
     return min_cost
     
 print(mincost_rehabs(arr, x, y))
+
+# question link: https://docs.google.com/document/d/11fn8ZwZ0Hr_-sdVJMMjKPHlFZAILhQ2nrd4eRSHEHDI/edit
+prefix = [0] * 9
+
+def maxlength(q):
+    for i in range(len(q)):
+        l = q[i][0]
+        r = q[i][1]
+        prefix[l] += 1
+        if r + 1 < len(prefix): prefix[r+1] -= 1
+        
+    for i in range(len(prefix)):
+        prefix[i] = prefix[i-1] + prefix[i]
+        
+    return prefix
+    
+q = [[1,8],[5,8]]
+print(maxlength(q))

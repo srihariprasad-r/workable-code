@@ -439,30 +439,43 @@ def meetingassistant(events):
 
 # question link: https://docs.google.com/document/d/1enINelZDWXi3ZLSLH5jbN-zXCzcWnrXFQ0RRUhJl6PY/edit
 # count of shortest length subarrays with sum k
-arr = [10,5,2,7,1,9,8,7]
+arr = [10,5,2,7,1,9,8,7,9,6]
 k = 15
-
-prefix = [0] * (len(arr)+1)
-
-ans = float('inf')
 
 import collections
 d = collections.defaultdict(int)
-occurances = collections.defaultdict(int)
 
-for i in range(1,len(prefix)):
-    prefix[i] = prefix[i-1] + arr[i-1]
+def shortestsubarray_cnt(arr,k):
+    d[0] = -1
+    s = 0
+    mlen = float('inf')
     
-last_seen = 0
-for i in range(1, len(prefix)):
-    j = 0
-    while j < i:
-        if prefix[i] - prefix[j] == k:
-            d[i-j] += 1
-            ans = min(ans, i-j)
-        j += 1
+    for i in range(len(arr)):
+        s += arr[i]
+        if s - k in d:
+            mlen = min(mlen, i - d[s-k])
+        d[s] = i
         
-print(d[ans])
+    # sliding window to find count of shortest length subarrays    
+    i = 0
+    j = 0
+    cnt = 0
+    
+    s = 0
+    while i <= j and j < len(arr):
+        s += arr[j]
+        
+        if j - i + 1 < mlen:
+            j += 1
+        else:
+            if s == k: cnt += 1
+            s -= arr[i]
+            i += 1
+            j += 1
+    
+    return cnt
+    
+print(shortestsubarray_cnt(arr, k))
 
 # question link: https://www.desiqna.in/15920/microsoft-oa-september-2023-freshers-hiring-sde1-set-115
 # wrong submission

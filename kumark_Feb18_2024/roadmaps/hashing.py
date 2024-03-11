@@ -525,3 +525,29 @@ def maxlength(q):
     
 q = [[1,8],[5,8]]
 print(maxlength(q))
+
+# question link: https://www.desiqna.in/16087/media-net-oa-sde1-ctc-28-l
+arr = [5, -2, 3, 1, 2]
+k = 3
+
+prefix = [0] * (len(arr)+1)
+suffix = [0] * (len(arr)+1)
+
+# prefix[0] = arr[0]
+suffix[len(arr)-1] = arr[-1]
+
+def maxsumselection(arr,k):
+    msum = 0
+    for i in range(1, len(prefix)):
+        prefix[i] = prefix[i-1] + arr[i-1]
+        
+    for i in range(len(suffix)-2, 0, -1):
+        suffix[i-1] = suffix[i] + arr[i-1]
+
+    for i in range(k):
+        sidx = len(arr) - k + i + 1
+        msum = max(msum, prefix[i+1] + suffix[sidx])
+
+    return msum
+    
+print(maxsumselection(arr, k))

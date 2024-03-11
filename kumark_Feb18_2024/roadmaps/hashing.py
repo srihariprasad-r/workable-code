@@ -551,3 +551,26 @@ def maxsumselection(arr,k):
     return msum
     
 print(maxsumselection(arr, k))
+
+# https://docs.google.com/document/d/1HwqRB-dQZXKlHlpn-2KLqyrWDbYEZ4gD7uskSEQUUcM/edit
+# need to revisit to convert to hashing - only one index pair is return , 3 idx exists as answer
+arr = [5, 6, 7, 8, 10, 4, 3, 2, 1]
+k = 8
+
+import collections
+d = collections.defaultdict(int)
+
+def first_last_element_sum_shortest_subarray(arr,k):
+    i = 0
+    j = len(arr) - 1
+    mlen = float('inf')
+    while j >= i:
+        s = arr[i] + arr[j]
+        if s == k:
+            mlen = min(mlen, j -i + 1)
+        i += 1
+        j -= 1
+
+    return mlen
+    
+print(first_last_element_sum_shortest_subarray(arr, k))

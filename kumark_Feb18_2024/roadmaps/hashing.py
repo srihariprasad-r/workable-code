@@ -574,3 +574,28 @@ def first_last_element_sum_shortest_subarray(arr,k):
     return mlen
     
 print(first_last_element_sum_shortest_subarray(arr, k))
+
+# question link: https://docs.google.com/document/d/1LthiOPD4CvHTu9d0_h_XKJF9U9BYdjYYetnjjAPQLpo/edit
+# wrong submission
+arr = [5,3,4,6,2,5]
+
+prefix = [0] * len(arr)
+
+def triplets(arr):
+    cnt = 0
+    
+    for i in range(1, len(arr)-1):
+        if arr[i-1] > arr[i]:
+            prefix[i] = 1
+            
+    for i in range(len(prefix)):
+        if prefix[i] == 1:
+            if i + 1 < len(arr) and not arr[i] < arr[i+1]:
+                prefix[i] = 0
+                
+    for x in prefix:
+        if x: cnt += 1
+        
+    return cnt
+    
+print(triplets(arr))

@@ -576,26 +576,39 @@ def first_last_element_sum_shortest_subarray(arr,k):
 print(first_last_element_sum_shortest_subarray(arr, k))
 
 # question link: https://docs.google.com/document/d/1LthiOPD4CvHTu9d0_h_XKJF9U9BYdjYYetnjjAPQLpo/edit
-# wrong submission
 arr = [5,3,4,6,2,5]
 
 prefix = [0] * len(arr)
+suffix = [0] * len(arr)
 
 def triplets(arr):
-    cnt = 0
-    
-    for i in range(1, len(arr)-1):
-        if arr[i-1] > arr[i]:
-            prefix[i] = 1
-            
-    for i in range(len(prefix)):
-        if prefix[i] == 1:
-            if i + 1 < len(arr) and not arr[i] < arr[i+1]:
-                prefix[i] = 0
+    for i in range(len(arr)-1):
+        j = i + 1
+        c = 0
+        while j < len(arr):
+            if arr[i] > arr[j]:
+                c += 1
                 
-    for x in prefix:
-        if x: cnt += 1
+            j += 1
+            
+        prefix[i] = c
         
-    return cnt
+    for i in range(len(arr)-1, -1, -1):
+        j = len(arr) - 1
+        c = 0
+        while j > i :
+            if arr[j] > arr[i]:
+                c += 1
+                
+            j -= 1
+            
+        suffix[i] = c
+        
+    c = 0
+    # starting loop from 1..n as i < j and if j == 0 ; i does not exists
+    for i in range(1, len(arr)):
+        c += prefix[i] * suffix[i]
+        
+    return c
     
 print(triplets(arr))

@@ -612,3 +612,43 @@ def triplets(arr):
     return c
     
 print(triplets(arr))
+
+# question link: https://www.geeksforgeeks.org/count-quadruplets-with-sum-k-from-given-array/
+# wrong submission
+arr = [4, 5, 3, 1, 2, 4]
+tsum = 13
+
+# 5 3 4 1
+# 1 5 3 4
+# 5 3 2 3
+# 5 4 1 3
+
+import collections
+d = collections.defaultdict(list)
+
+def quafruplets_sum_k(arr, k):
+    cnt = 0
+    for i in range(len(arr)-1):
+        j = i + 1
+        s = arr[i]
+        while j < len(arr):
+            s += arr[j]
+            d[s].append((i,j))
+            s -= arr[j]
+            j += 1
+            
+    
+    for i in range(len(arr)-1):
+        j = i + 1
+        s = arr[i]
+        while j < len(arr):
+            s += arr[j]
+            temp = k - s
+            if temp in d and all((i,j) > (x,y) for x,y in d[temp]): 
+                cnt += 1
+            s -= arr[j]
+            j += 1
+            
+    return cnt
+    
+print(quafruplets_sum_k(arr, tsum))

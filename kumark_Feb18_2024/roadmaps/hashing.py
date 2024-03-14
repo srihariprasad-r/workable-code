@@ -626,7 +626,7 @@ tsum = 13
 import collections
 d = collections.defaultdict(list)
 
-def quafruplets_sum_k(arr, k):
+def quadruplets_sum_k(arr, k):
     cnt = 0
     for i in range(len(arr)-1):
         j = i + 1
@@ -651,4 +651,54 @@ def quafruplets_sum_k(arr, k):
             
     return cnt
     
-print(quafruplets_sum_k(arr, tsum))
+print(quadruplets_sum_k(arr, tsum))
+
+# question link: https://leetcode.com/problems/max-number-of-k-sum-pairs/description/
+# arr = [3,1,3,4,3]
+# k = 6
+
+arr = [1,2,3,4]
+k = 5
+
+import collections
+from collections import deque
+d = collections.defaultdict(list)
+
+def max_k_sum_pairs(arr, k):
+    for i in range(len(arr)-1):
+        j = i + 1
+        s = arr[i]
+        while j < len(arr):
+            s += arr[j]
+            if s == k:
+                d[s].append((i,j))
+                
+            if s in d: 
+                if (i,j) not in d[s]:
+                    d[s].append((i,j))
+            else:
+                d[s].append((i,j))
+            
+                
+            s -= arr[j]
+            j += 1
+            
+    q = deque()
+    
+    m, n = d[k][0]
+    
+    for i in range(1, len(d[k])):
+        q.append(d[k][i])
+    
+    cnt = 1
+    
+    while q:
+        x, y = q.popleft()
+        if x == m or y == n or x == n or y == m:
+            continue
+        else:
+            cnt += 1
+            
+    return cnt
+    
+print(max_k_sum_pairs(arr, k))

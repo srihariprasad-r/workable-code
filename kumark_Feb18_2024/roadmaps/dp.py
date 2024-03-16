@@ -3,32 +3,38 @@
 n = 15
 
 y = 100
-x = 1 
-z = 50
-b = 100000
+x = 1 # /7 
+z = 50 # /3
+b = 100000 # /5
 
 m = n
 dp = [0] * 16
+dp[1] = y
 
 def min_cost(dp, m):
-    n = 1
+    n = 2
+    while n <= m:
 
-    while  n <= m:
+        e1 = 100000001
+        e2 = 100000001
+        e3 = 100000001
+        
         dp[n // 1] += y
-    
+
         if n % 7 == 0:
-            dp[n//7] += x
+            e1 = dp[n//7] + x
             
         if n % 3 == 0:
-            dp[n//3] += z
+            e2 = dp[n//3] + z
     
         if n % 5 == 0:
-            dp[n//5] += b
-            
-        dp[m] = min(dp[n//1], min(dp[n//7], min(dp[n//3], dp[n//5])))
-        
+            e3 = dp[n//5] + b
+
+        v = min(dp[n//1], min(e1, min(e2, e3)))
+
+        dp[n] = v
         n += 1
-    
-    return dp[m]  
+
+    return dp[m] 
     
 print(min_cost(dp, m))

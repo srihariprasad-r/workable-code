@@ -702,3 +702,29 @@ def max_k_sum_pairs(arr, k):
     return cnt
     
 print(max_k_sum_pairs(arr, k))
+
+# question link: https://docs.google.com/document/d/19QBr6ahoVh3himYXB6Fd0JscC6yhjV9qLyt2fGpdLhk/edit
+
+arr = [5, 8, -100, 2, 3, 4]
+
+prefix = [0] * len(arr)
+suffix = [0] * len(arr)
+
+prefix[0] = arr[0]
+suffix[-1] = arr[-1]
+
+def max_sum_non_overlapping(arr):
+    mx = 0
+    for i in range(1, len(arr)):
+        prefix[i] = max(arr[i], prefix[i-1]+ arr[i])
+        
+    for i in range(len(arr)-2, -1, -1):
+        suffix[i] = max(arr[i], suffix[i+1]+ arr[i])
+
+    for i in range(len(arr)-1):
+        for j in range(i+1, len(arr)):
+            mx = max(mx, prefix[i] + suffix[j])
+    
+    return mx
+    
+print(max_sum_non_overlapping(arr))

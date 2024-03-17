@@ -728,3 +728,28 @@ def max_sum_non_overlapping(arr):
     return mx
     
 print(max_sum_non_overlapping(arr))
+
+# question link: https://www.desiqna.in/15839/zscaler-oa-2023-sep-set-10
+arr = [9, 3, 1, 2, 3, 9, 10, 0, 3, 2, 1, 3]
+
+prefix = [0] * (len(arr))
+prefix[0] = arr[0]
+
+for i in range(1,len(arr)):
+    prefix[i] = prefix[i-1] + arr[i]
+
+def first_last_number(arr):
+    cnt = 0
+    for i in range(len(arr)-1):
+        j = len(arr) -1
+        while i < j:
+            if arr[i] != arr[j]:
+                j -= 1
+            else:
+                s = prefix[j-1] - prefix[i] 
+                if s == arr[i]: cnt += 1
+                j -= 1
+    
+    return cnt
+    
+print(first_last_number(arr))

@@ -730,3 +730,29 @@ def first_last_number(arr):
     return cnt
     
 print(first_last_number(arr))
+
+# question link: https://docs.google.com/document/d/1Y64Xw5WeW6-UYXXuu75_w7_AQU9tlqYdvhGfHc7-XqU/edit
+arr = [1, 8, 10,8, -5, 8, 9, 9, 9, 9, 9, 10]
+
+prefix = [0] * len(arr)
+prefix[0] = arr[0]
+
+def max_sum_subarray_first_last_elem_equal(arr):
+    mx = 0
+    for i in range(1, len(arr)):
+        prefix[i] = prefix[i-1] + arr[i]
+        
+            
+    for i in range(len(arr)-1):
+        j = len(arr) - 1
+        while i < j:
+            if arr[i] != arr[j]:
+                j -= 1
+            else:
+                s = prefix[j] - prefix[i-1]
+                if mx < s: mx = s
+                j -= 1
+                
+    return mx
+
+print(max_sum_subarray_first_last_elem_equal(arr))

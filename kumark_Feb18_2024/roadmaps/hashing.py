@@ -653,55 +653,32 @@ def quadruplets_sum_k(arr, k):
     
 print(quadruplets_sum_k(arr, tsum))
 
-# question link: https://leetcode.com/problems/max-number-of-k-sum-pairs/description/
-# arr = [3,1,3,4,3]
-# k = 6
+# question link: https://www.desiqna.in/15068/google-oa-swe-intern-july-2023-solution-by-kumar-k
 
-arr = [1,2,3,4]
-k = 5
+arr = [1, 2, 6,6, 5]
 
 import collections
-from collections import deque
 d = collections.defaultdict(list)
 
-def max_k_sum_pairs(arr, k):
+def max_pairs(arr):
     for i in range(len(arr)-1):
         j = i + 1
-        s = arr[i]
         while j < len(arr):
-            s += arr[j]
-            if s == k:
-                d[s].append((i,j))
-                
-            if s in d: 
-                if (i,j) not in d[s]:
-                    d[s].append((i,j))
-            else:
-                d[s].append((i,j))
-            
-                
-            s -= arr[j]
+            s = arr[i] + arr[j]
+            if (arr[i], arr[j]) not in d[s]:
+                d[s].append((arr[i], arr[j]))
             j += 1
+        
+    mx = 0   
+    s = 0
+    for k, v in d.items():
+        if mx < len(v):
+            s = k
+            mx = len(v)
             
-    q = deque()
+    return d[s]
     
-    m, n = d[k][0]
-    
-    for i in range(1, len(d[k])):
-        q.append(d[k][i])
-    
-    cnt = 1
-    
-    while q:
-        x, y = q.popleft()
-        if x == m or y == n or x == n or y == m:
-            continue
-        else:
-            cnt += 1
-            
-    return cnt
-    
-print(max_k_sum_pairs(arr, k))
+print(max_pairs(arr))
 
 # question link: https://docs.google.com/document/d/19QBr6ahoVh3himYXB6Fd0JscC6yhjV9qLyt2fGpdLhk/edit
 

@@ -742,7 +742,6 @@ def max_sum_subarray_first_last_elem_equal(arr):
     for i in range(1, len(arr)):
         prefix[i] = prefix[i-1] + arr[i]
         
-            
     for i in range(len(arr)-1):
         j = len(arr) - 1
         while i < j:

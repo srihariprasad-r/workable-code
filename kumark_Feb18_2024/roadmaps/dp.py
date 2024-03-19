@@ -67,3 +67,36 @@ def oddsum(idx, s):
     return dp[idx]
 
 print(oddsum(len(arr)-1, 0))
+
+# question link: https://www.desiqna.in/16115/google-interview-problem-dynamic-programming-cities-october#google_vignette
+# A = [23, 4,5 ,101] 
+# B = [21,1,10, 100]
+
+A = [25,10,15,10,70] 
+B = [5,5,50,5,30]
+
+dp = [0] * len(A)
+
+dp[0] = max(A[0], B[0])
+
+def travel_city(A,B, dp):
+    placework = 'A' if A[0] > B[0] else 'B'
+    for i in range(1, len(A)):
+        if placework == 'A':
+            if dp[i-1] + A[i] > dp[i-2] + B[i]:
+                dp[i] = A[i] + dp[i-1]
+            else:
+                dp[i-1] = dp[i-2]
+                dp[i] = dp[i-2] + B[i]
+                placework = 'B'
+        else:
+            if dp[i-2] +A[i] > dp[i-1] + B[i]:
+                placework = 'A'
+                dp[i-1] = dp[i-2]
+                dp[i] = dp[i-2] + A[i]
+            else:
+                dp[i] = B[i] + dp[i-1]
+                
+    return dp[-1]
+                
+print(travel_city(A, B, dp))

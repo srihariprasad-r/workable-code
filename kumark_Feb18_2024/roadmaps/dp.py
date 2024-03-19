@@ -100,3 +100,45 @@ def travel_city(A,B, dp):
     return dp[-1]
                 
 print(travel_city(A, B, dp))
+
+# question link: https://leetcode.com/discuss/interview-question/4355676/help-needed
+A = [
+    [1, 2,13, 0],
+    [15, 26,7,48],
+    [99,86,11,12],
+    [92,89,0,99]
+]
+arr = [[0 for _ in range(len(A[0]))] for _ in range(len(A))]
+
+def players(A, arr):
+    mx = 0
+    
+    for i in range(len(A)-1, -1, -1):
+        for j in range(len(A)-1, -1, -1):
+            up = A[i][j] - A[i-1][j]
+            left = A[j][j] - A[i-1][j]
+            arr[i][j]= max(up, left)
+            mx = max(mx, arr[i][j])
+            
+    return mx
+    
+print(players(A, arr))
+
+
+# question link: https://leetcode.com/problems/palindromic-substrings/
+# wrong submission
+def countSubstrings(self, s: str) -> int:
+    dp = [[0 for _ in range(len(s))] for _ in range(len(s))]
+    cnt = 0
+    
+    for i in range(len(s)):
+        for j in range(i, len(s)):
+            if i == j: dp[i][j] = 1
+    for i in range(len(s)):
+        for j in range(i,len(s)):
+            if s[i] != s[j]:
+                continue
+            else:
+                dp[i][j] = dp[i-1][j-1] + 1
+                cnt += 1
+    return cnt

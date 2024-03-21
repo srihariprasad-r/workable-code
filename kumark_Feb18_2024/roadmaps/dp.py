@@ -40,33 +40,34 @@ def min_cost(dp, m):
 print(min_cost(dp, m))
 
 # question link: https://www.desiqna.in/13822/google-dp-interview-question-jan-2023
-# arr = [5, 4, 2, 6]
-arr = [2 ,3 ,5, 8, 10]
+arr = [5, 4, 2, 6, 12]
+# arr = [2, 3, 5, 8, 10]
 
-dp = [0] * len(arr)
+prefix = [0] * len(arr)
+prefix[0] = arr[0]
 
-def oddsum(idx, s):
-    if idx < 0:
-        return 0
+def odd_sum_count(arr, prefix):
+    for i in range(1, len(arr)):
+        prefix[i] = prefix[i-1] + arr[i]
+        
+    # 0 -> 1 -> 2 = prefix[2]
+    # 0 -> 2 = prefix[2] - prefix[1] + prefix[0] = prefix[i] - prefix[i-1] + prefix[i-2]
+    # 0 -> 1 -> 3 = prefix[3] - prefix[2] + prefix[1] = 17 - 11 + 9 = 15
     
-    if idx == 0:
-        s += arr[idx]
-        if s % 2 == 0: return 1
-        else: return 0
+    dp = [0] * len(arr)
+    dp[0] = 1 if prefix[0] % 2 else 0
+    dp[1] = 1 if prefix[1] % 2 else 0
     
-    # commented as it provides incorrect results
-    # if dp[idx] != 0: return dp[idx]
+    for i in range(2, len(arr)):
+        for j in range(1,3):
+            if j == 1: 
+                dp[i] += dp[i-1] if prefix[i] % 2 else 0
+            else:
+                dp[i] += dp[i-2] if (prefix[i] - prefix[i-1] + prefix[i-2]) % 2 else 0
+                
+    return dp[-1]
     
-    odd_s_1 = 0
-    odd_s_2 = 0
-    
-    odd_s_1 = oddsum(idx-1, s + arr[idx])
-    odd_s_2 = oddsum(idx-2, s + arr[idx])
-    
-    dp[idx] = odd_s_1 + odd_s_2
-    return dp[idx]
-
-print(oddsum(len(arr)-1, 0))
+print(odd_sum_count(arr, prefix))
 
 # question link: https://www.desiqna.in/16115/google-interview-problem-dynamic-programming-cities-october#google_vignette
 # A = [23, 4,5 ,101] 
@@ -150,3 +151,41 @@ def countSubstrings(s):
             i += 1
         l += 1
     return cnt
+
+# question link: https://www.geeksforgeeks.org/longest-palindromic-substring-using-dynamic-programming/
+# s= 'abbabba'
+def longestPalindrome(s):
+    dp = [[0 for _ in range(len(s))] for _ in range(len(s))]
+
+    ans = 0
+    mx = ''
+    for i in range(len(s)):
+        dp[i][i] = 1
+        if ans < 1:
+            ans = 1
+            mx = s[i]
+
+    l = 1
+    i = 0
+    while i < len(s) - 1:
+        if s[i] == s[i+1]:
+            dp[i][i+1] = 1
+            if ans < 2 :
+                ans = 2
+                mx = s[i:i+ans]
+        i += 1
+
+    l = 3
+    while l <= len(s):
+        i = 0
+        while i < len(s) - l + 1:
+            j = i + l - 1
+            if s[i] == s[j] and dp[i+1][j-1] == 1:
+                dp[i][j] = 1
+                mx = s[i:i+l]
+            i += 1
+        l += 1
+
+    return mx
+
+print((longestPalindrome(s)))

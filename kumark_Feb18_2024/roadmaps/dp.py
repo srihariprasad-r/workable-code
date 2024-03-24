@@ -217,3 +217,55 @@ def burstballons(arr):
     return dp[0][len(arr)-1]
     
 print(burstballons(arr))
+
+# question link: https://www.desiqna.in/15592/microsoft-oa-sde-1-dp-freshers-hiring-43-lac-ctc
+arr = [1, 9, 8, 9, 5, 1, 2]
+dp = [[[0]*3 for _ in range(len(arr))] for _ in range(len(arr))]
+
+s1 = arr[0] + arr[1] # first two elements
+s2 = arr[0] + arr[-1] # first and last elements
+s3 = arr[-1] + arr[-2] # last two elements
+
+def max_deletes_same_sum(arr, dp):
+    for i in range(len(arr)-1):
+        s = arr[i] + arr[i+1]
+        if  s == s1:
+            dp[i][i+1][0] = 1
+        elif s == s2:
+            dp[i][i+1][1] = 1
+        elif s == s3:
+            dp[i][i+1][2] = 1
+            
+    l = 3
+    while l <= len(arr):
+        i = 0
+        while i < len(arr) - l + 1:
+            j = i + l - 1
+            s = arr[i] + arr[i+1]
+            if s == s1:
+                dp[i][j][0] = max(dp[i][j][0], 1 + dp[i+2][j][0])
+            if s == s2:
+                dp[i][j][1] = max(dp[i][j][1], 1 + dp[i+2][j][1])
+            if s == s3:
+                dp[i][j][2] = max(dp[i][j][2], 1 + dp[i+2][j][2])
+            s = arr[i] + arr[j]
+            if s == s1:
+                dp[i][j][0] = max(dp[i][j][0], 1 + dp[i+1][j-1][0])
+            if s == s2:
+                dp[i][j][1] = max(dp[i][j][1], 1 + dp[i+1][j-1][1])
+            if s == s3:
+                dp[i][j][2] = max(dp[i][j][2], 1 + dp[i+1][j-1][2])
+            s = arr[j-1] + arr[j]
+            if s == s1:
+                dp[i][j][0] = max(dp[i][j][0], 1 + dp[i][j-2][0])
+            if s == s2:
+                dp[i][j][1] = max(dp[i][j][1], 1 + dp[i][j-2][1])
+            if s == s3:
+                dp[i][j][2] = max(dp[i][j][2], 1 + dp[i][j-2][2])
+                
+            i += 1
+        l += 1
+        
+    return max(dp[0][len(arr)-1][0], max(dp[0][len(arr)-1][1], dp[0][len(arr)-1][2]))
+    
+print(max_deletes_same_sum(arr, dp))

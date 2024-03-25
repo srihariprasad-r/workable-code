@@ -272,27 +272,25 @@ print(max_deletes_same_sum(arr, dp))
 
 # question link: https://leetcode.com/contest/biweekly-contest-108/problems/partition-string-into-minimum-beautiful-substrings/
 # wrong submission
-def minimumBeautifulSubstrings(s):
-    import math
+class Solution:
+    def minimumBeautifulSubstrings(self, s: str) -> int:
+        powersOf5 = [format(5**i,'b')  for i in range(15)]
+        dp = [0] * len(s)
 
-    def check_power_5(x):
-        if x == 0: return False
-        return x == int(5**math.log(x, 5))
-    
-    dp = [0] * len(s)
-    dp[0] = 1 if s[0] == '1' else 0
-    
-    for i in range(1,len(s)):
-        j = i
-        t = s[j]
-        v = 0
-        while j > -1 and check_power_5(int(t, 2)):
-            v += dp[j-1]
-            j -= 1
-            t += s[j]
-        dp[i] = v
+        dp[0] = 1 if s[0] == '1' else 0
 
-    return dp[len(s)-1]
+        for i in range(1,len(s)):
+            j = i
+            t = s[j]
+            v = 0
+            while j > -1 :
+                if str(t) in powersOf5: 
+                    v = 1 + dp[j-1]
+                j -= 1
+                t += s[j]
+            dp[i] =  v
+        
+        return dp[len(s)-1] if dp[len(s)-1] > 0 else -1
 
 s = '111'
 print(minimumBeautifulSubstrings(s))

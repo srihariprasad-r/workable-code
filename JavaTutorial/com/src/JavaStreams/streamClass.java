@@ -1,6 +1,7 @@
 package src.JavaStreams;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import src.JavaStreams.DishExample;
 
@@ -22,5 +23,15 @@ public class streamClass {
                         new DishExample("salmon", false, 450, "FISH") );
 
         menu.stream().map(DishExample::getName).forEach(System.out::println);
+
+        //filter elements and collect names as List
+        List<String> highCalories = menu.stream().filter(d -> d.getCalories() > 500).map(c -> c.getName()).collect(Collectors.toList());
+        System.out.println(highCalories);
+
+        //filter unique elements through Predicate
+        List<Integer> nums = List.of(1,2,3,2,1,4,6);
+        List<Integer> evenDistinctNums = nums.stream().filter(c -> c % 2 == 0).distinct().collect(Collectors.toList());
+        System.out.println(evenDistinctNums);
+
     }
 }

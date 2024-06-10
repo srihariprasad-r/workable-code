@@ -9,7 +9,7 @@ public class streamClass {
     public static void main(String[] args) {
         List<String> songs = List.of("item1", "item2", "item3");
         Stream<String> st = songs.stream();
-        st.forEach(System.out::println); //cannot be used again
+        //st.forEach(System.out::println); //cannot be used again
 
         List<DishExample> menu = Arrays.asList(
                 new DishExample("pork", false, 800, "MEAT"),
@@ -22,16 +22,26 @@ public class streamClass {
                         new DishExample("prawns", false, 300, "FISH"),
                         new DishExample("salmon", false, 450, "FISH") );
 
-        menu.stream().map(DishExample::getName).forEach(System.out::println);
+        //menu.stream().map(DishExample::getName).forEach(System.out::println);
 
         //filter elements and collect names as List
         List<String> highCalories = menu.stream().filter(d -> d.getCalories() > 500).map(c -> c.getName()).collect(Collectors.toList());
-        System.out.println(highCalories);
+        //System.out.println(highCalories);
 
         //filter unique elements through Predicate
         List<Integer> nums = List.of(1,2,3,2,1,4,6);
         List<Integer> evenDistinctNums = nums.stream().filter(c -> c % 2 == 0).distinct().collect(Collectors.toList());
-        System.out.println(evenDistinctNums);
+        //System.out.println(evenDistinctNums);
 
+        String[] words = {"Hello", "world"};
+        Stream<String> stringWords = Arrays.stream(words);
+        List<String> listWords = stringWords.map(c -> c.split(" ")).flatMap(Arrays::stream).distinct().collect(Collectors.toList());
+        //System.out.println(listWords);
+
+        Optional<Float> maxCalorieValue = menu.stream().map(d -> d.getCalories()).reduce(Float::max);
+        //System.out.println(maxCalorieValue);
+
+        List<Float> sortedCalories = menu.stream().sorted(Comparator.comparing(DishExample::getCalories)).map(c -> c.getCalories()).collect(Collectors.toList());
+        System.out.println(sortedCalories);
     }
 }

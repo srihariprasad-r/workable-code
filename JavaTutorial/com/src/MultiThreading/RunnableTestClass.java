@@ -1,7 +1,7 @@
 package src.MultiThreading;
 
 public class RunnableTestClass implements Runnable {
-    public void run(){
+    public void run(){ //method which has actual job to be started first
         go();
     }
 
@@ -18,7 +18,7 @@ public class RunnableTestClass implements Runnable {
 class TestRunnable {
     public static void main(String[] args) {
         Runnable rnable = new RunnableTestClass();
-        Thread t = new Thread(rnable);
-        t.start();
+        Thread t = new Thread(rnable); // pass runnable object to thread, which carries first method to put in new stack
+        t.start(); //creates new stack and places run() method into it
     }
 }

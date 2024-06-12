@@ -24,11 +24,17 @@ class MultipleThreads {
     public static void main(String[] args) {
         MultipleThreadTestClass one = new MultipleThreadTestClass("First");
         MultipleThreadTestClass two = new MultipleThreadTestClass("Second");
-        one.t.start();
-        two.t.start();
 
         try {
-            Thread.sleep(2000);
+//            Thread.sleep(2000); // sleep does not have meaningful wait/interruption
+            one.t.start();
+            System.out.println("First thread is processing!");
+            one.t.join();
+            System.out.println("First thread is done!");
+            two.t.start();  //starts second thread
+            System.out.println("Second thread is processing!");
+            two.t.join();
+            System.out.println("Second thread is done!");
         } catch (InterruptedException e) {
             System.out.println("Interrupted");
         }

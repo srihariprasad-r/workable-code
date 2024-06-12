@@ -6,6 +6,11 @@ public class RunnableTestClass implements Runnable {
     }
 
     public void go(){
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         doMore();
     }
 

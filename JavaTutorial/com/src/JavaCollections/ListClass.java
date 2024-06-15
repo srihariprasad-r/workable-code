@@ -33,7 +33,7 @@ public class ListClass {
         ReverseListClass<String> rls = new ReverseListClass<String>(arr);
 
         Iterator<String> ril = rls.iterator();
-            while (ril.hasNext()){
+        while (ril.hasNext()){
                 System.out.println("reversed: " + " " + ril.next());
             }
 

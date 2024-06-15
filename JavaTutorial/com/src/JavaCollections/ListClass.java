@@ -1,6 +1,8 @@
 package com.src.JavaCollections;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import src.JavaCollections.ReverseListClass;
 
 public class ListClass {
@@ -35,7 +37,53 @@ public class ListClass {
         Iterator<String> ril = rls.iterator();
         while (ril.hasNext()){
                 System.out.println("reversed: " + " " + ril.next());
-            }
+        }
 
+        System.out.println("---------addAll()----------");
+        arr.addAll(List.of("four", "five", "six"));
+        System.out.println(arr);
+
+        System.out.println("--------copyOf()---------");
+        List<String> newArr = List.copyOf(arr);
+        System.out.println(newArr);
+
+        System.out.println("--------indexOf()---------");
+        System.out.println(arr.indexOf("Five"));
+
+        String s1 = arr.get(4).toLowerCase();
+        System.out.println(arr.lastIndexOf(s1));
+        //find all occurrence of string Five
+        List<String> el = arr.stream().filter(i -> i.equalsIgnoreCase("Five")).collect(Collectors.toList());
+        System.out.println(el); //[Five, five]
+
+        Collections.sort(arr, new Comparator<String>() {
+            @Override
+            public int compare(String s, String t1) {
+                for ( int i = 0; i < s.length(); i++ ) {
+                    boolean slessThant1 = s.charAt(i) < t1.charAt(i);
+                    boolean sGreaterThant1 = s.charAt(i) > t1.charAt(i);
+                    if ((s.charAt(i) > 64 && s.charAt(i) < 91) || (t1.charAt(i) > 97 && t1.charAt(i) < 122)) {
+                        if (slessThant1) {
+                            return -1;
+                        }
+                        if (sGreaterThant1) {
+                            return 1;
+                        }
+                    } else {
+                        if (slessThant1) {
+                            return 1;
+                        }
+                        if (sGreaterThant1) {
+                            return -1;
+                        }
+                    }
+
+                }
+                return 0;
+                //
+            }
+        });
+
+        System.out.println(arr);
         }
     }

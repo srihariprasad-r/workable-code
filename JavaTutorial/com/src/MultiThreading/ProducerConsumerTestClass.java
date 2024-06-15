@@ -2,19 +2,40 @@ package src.MultiThreading;
 
 class Q {
     int n;
+    boolean valueSet;
 
-    int get() {
+    synchronized int get() {
+        while (!valueSet) {
+            try{
+                System.out.println("Inside get: " + valueSet);
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        valueSet = false;
         System.out.println("Get :" + n);
+        notify();
         return this.n;
     }
 
-    void put(int n) {
+    synchronized void put(int n) {
+        while (valueSet) {
+            try {
+                System.out.println("Inside put: " + valueSet);
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        valueSet = true;
         System.out.println("Put :" + n);
         this.n = n;
+        notify();
     }
 }
 
-class Producer extends Q implements Runnable {
+class Producer implements Runnable {
     Q q;
     Thread t;
     Producer(Q q) {
@@ -31,7 +52,7 @@ class Producer extends Q implements Runnable {
     }
 }
 
-class Consumer extends Q implements Runnable {
+class Consumer implements Runnable {
     Q q;
     Thread t;
     Consumer(Q q) {
@@ -51,16 +72,8 @@ public class ProducerConsumerTestClass {
         Q q = new Q();
         Producer p = new Producer(q);
         Consumer c = new Consumer(q);
-
-        synchronized (p) {
-            p.t.start();
-        }
-        p.t.join();
-
-        synchronized (c){
-            c.t.start();
-        }
-        c.t.join();
+        p.t.start();
+        c.t.start();
 
     }
 

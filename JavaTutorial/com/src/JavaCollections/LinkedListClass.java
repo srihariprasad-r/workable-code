@@ -1,7 +1,6 @@
 package src.JavaCollections;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 
 class Node {
     int data;
@@ -24,6 +23,15 @@ public class LinkedListClass extends Node implements Iterable<Integer>  {
             tail = new_node;
         }
         size++;
+    }
+
+    public void getNode(Node r) {
+        Node node = r;
+
+        while (node != null) {
+            System.out.println(node.data);
+            node = node.next;
+        }
     }
 
     public void getNode() {
@@ -61,6 +69,20 @@ public class LinkedListClass extends Node implements Iterable<Integer>  {
         newNode.next = node.next;
     }
 
+    Node reverseLinkedList() {
+        Node node = head;
+        Node prev = null;
+
+        while (node != null) {
+            Node tmp = node.next;
+            node.next = prev;
+            prev = node;
+            node = tmp;
+        }
+
+        return prev;
+    }
+
     public Iterator<Integer> iterator() {
         return new Iterator<Integer>() {
             Node node = head;
@@ -94,12 +116,12 @@ public class LinkedListClass extends Node implements Iterable<Integer>  {
         System.out.println("----Insert node at the end in linked list-----");
         ls.insertAtEndNode(6);
         ls.getNode();
-
 //        Iterator<Integer> il = ls.iterator();
-//
 //        while (il.hasNext()) {
 //            System.out.println(il.next());
-//
 //        }
+        System.out.println("----Reverse linked list-----");
+        Node reversedNode = ls.reverseLinkedList();
+        ls.getNode(reversedNode);
     }
 }

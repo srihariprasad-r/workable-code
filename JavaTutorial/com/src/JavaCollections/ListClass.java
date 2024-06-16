@@ -1,7 +1,8 @@
-package com.src.JavaCollections;
+package src.JavaCollections;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import src.JavaCollections.ReverseListClass;
 
@@ -55,7 +56,7 @@ public class ListClass {
         //find all occurrence of string Five
         List<String> el = arr.stream().filter(i -> i.equalsIgnoreCase("Five")).collect(Collectors.toList());
         System.out.println(el); //[Five, five]
-
+        System.out.println("--------sort collection based on alphabetical order(first lowercase & then upper case)---------");
         Collections.sort(arr, new Comparator<String>() {
             @Override
             public int compare(String s, String t1) {
@@ -77,7 +78,6 @@ public class ListClass {
                             return -1;
                         }
                     }
-
                 }
                 return 0;
                 //
@@ -85,5 +85,27 @@ public class ListClass {
         });
 
         System.out.println(arr);
+        System.out.println("--------remove arraylist elements based on condition using iterator---------");
+        List<Integer> nums = IntStream.range(1,20).boxed().collect(Collectors.toList());
+        Iterator<Integer> lnums = nums.iterator();
+
+        while (lnums.hasNext()){
+            int it = lnums.next();
+            if ((it % 2 == 0)) {
+                lnums.remove();
+            }
+        }
+
+        System.out.println(nums);
+        // removeIf Predicate
+        nums.removeIf(i -> i % 2 == 0);
+        System.out.println("--------Range Iterator custom class---------");
+        IncrementRange ir = new IncrementRange(1, 4);
+        Iterator<Integer> il = ir.iterator();
+
+        while (il.hasNext()) {
+            System.out.println(il.next());
+        }
+
         }
     }

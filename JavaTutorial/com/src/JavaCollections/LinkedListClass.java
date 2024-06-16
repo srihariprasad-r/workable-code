@@ -73,11 +73,11 @@ public class LinkedListClass extends Node implements Iterable<Integer>  {
             @Override
             public Integer next() {
                 Node node = head;
-
-                while (node.hasNext()) {
-                    Integer data = node.v;
-                }
+                Integer data = node.data;
+                node = node.next;
+                return data;
             }
+        };
     }
 
 
@@ -94,6 +94,12 @@ public class LinkedListClass extends Node implements Iterable<Integer>  {
         System.out.println("----Insert node at the end in linked list-----");
         ls.insertAtEndNode(6);
         ls.getNode();
-        ls.iterateLinkedList();
+
+//        Iterator<Integer> il = ls.iterator();
+//
+//        while (il.hasNext()) {
+//            System.out.println(il.next());
+//
+//        }
     }
 }

@@ -7,7 +7,7 @@ class Node {
     Node next;
 }
 
-public class LinkedListClass extends Node implements Iterable<Integer>  {
+public class SinglyLinkedListClass extends Node implements Iterable<Integer>  {
     Node head;
     Node tail;
     int size;
@@ -104,7 +104,7 @@ public class LinkedListClass extends Node implements Iterable<Integer>  {
 
 
     public static void main(String[] args) {
-        LinkedListClass ls = new LinkedListClass();
+        SinglyLinkedListClass ls = new SinglyLinkedListClass();
         System.out.println("----Insert nodes into linked list-----");
         ls.addNewNode(2);
         ls.addNewNode(3);

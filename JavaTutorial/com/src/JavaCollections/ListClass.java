@@ -106,6 +106,11 @@ public class ListClass {
         while (il.hasNext()) {
             System.out.println(il.next());
         }
+        System.out.println("--------reverse print ArrayList---------");
+        ListIterator<Integer> ln = nums.listIterator(nums.size());
+        while (ln.hasPrevious()){
+            System.out.println(ln.previous());
+        }
 
         }
     }

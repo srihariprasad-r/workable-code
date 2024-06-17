@@ -20,13 +20,13 @@ class formLinkedList {
             head = tail = new_node;
             tail.nxt = null;
             head.prev = null;
-            size++;
         } else {
             tail.nxt = new_node;
             new_node.prev = tail;
             tail = new_node;
             tail.nxt = null;
         }
+        size++;
     }
 
     void displayNodes() {
@@ -37,6 +37,19 @@ class formLinkedList {
             node = node.nxt;
         }
     }
+
+    void  insertBeforeNode (int beforeNode) {
+        NodeDLL node = head;
+        NodeDLL prevNode = null;
+
+        while (node.data != beforeNode) {
+            prevNode = node;
+            node = node.nxt;
+        }
+
+        prevNode.nxt = node.nxt;
+        node.nxt.prev = prevNode;
+    }
 }
 
 
@@ -45,6 +58,10 @@ class DoublyLinkedListClass {
         formLinkedList dl = new formLinkedList();
         dl.addNode(2);
         dl.addNode(3);
+        dl.addNode(4);
+        dl.addNode(5);
+        //dl.displayNodes();
+        dl.insertBeforeNode(3);
         dl.displayNodes();
     }
 }

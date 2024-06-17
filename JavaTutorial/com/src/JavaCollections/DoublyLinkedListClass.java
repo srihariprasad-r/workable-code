@@ -38,11 +38,11 @@ class formLinkedList {
         }
     }
 
-    void  insertBeforeNode (int beforeNode) {
+    void  deleteNode (int n) {
         NodeDLL node = head;
         NodeDLL prevNode = null;
 
-        while (node.data != beforeNode) {
+        while (node.data != n) {
             prevNode = node;
             node = node.nxt;
         }
@@ -61,7 +61,7 @@ class DoublyLinkedListClass {
         dl.addNode(4);
         dl.addNode(5);
         //dl.displayNodes();
-        dl.insertBeforeNode(3);
+        dl.deleteNode(3);
         dl.displayNodes();
     }
 }

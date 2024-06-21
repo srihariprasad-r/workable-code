@@ -4,6 +4,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.Comparator;
 
 class Student {
     int num;
@@ -23,7 +24,19 @@ class Student {
     }
 }
 
-public class TreeMapTestClass extends Student {
+
+class FirstComparatorTest implements Comparator<Integer> {
+    public int compare(Integer s1, Integer s2) {
+        if (s1 < s2) {
+            return -1;
+        } else if (s1 > s2) {
+            return 1;
+        }
+        return 0;
+    }
+}
+
+public class TreeMapTestClass {
     public static void main(String[] args) {
         TreeMap<Integer, Student> ts = new TreeMap<>();
         //default comparator
@@ -38,5 +51,12 @@ public class TreeMapTestClass extends Student {
 
         // fetch keys and get value of key
         System.out.println(ts.get(ts.keySet().toArray()[0]));
+
+        //use custom comparator to sort keys : comparator is only for key!
+        TreeMap<Integer, Student> rts = new TreeMap<Integer, Student>(new FirstComparatorTest());
+        rts.put(21, new Student(11, "ABC", "Some random address"));
+        rts.put(20, new Student(21, "ABC", "Galaxy"));
+
+        System.out.println(rts);
     }
 }

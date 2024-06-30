@@ -48,4 +48,22 @@ func main() {
 	// fmt.Println("sorted array: ", n)
 
 	slice.SortArraysByComparator()
+
+	var r = functionparms.Rectangle{Height:10.0, Width:20.3}
+	fmt.Println(r.PerimeterValueReference())
+	fmt.Println(r.Height) //value remains the same 
+
+	var r1 = functionparms.Rectangle{Height:10.0, Width:20.3}
+	fmt.Println(r1.PerimeterPointerReference())
+	fmt.Println(r1.Height)	//value updates after using Pointer reference
+
+	var rct1 = functionparms.Rectangle{Height:10.1, Width:20.5}
+	var rct2 = functionparms.Rectangle{Height:10.3, Width:40.5}	
+	var listRectangles = []*functionparms.Rectangle{&rct1, &rct2}
+	fmt.Println(functionparms.ListRectanglesPointerReference(listRectangles))
+
+	for _, rc := range listRectangles {
+		fmt.Println(rc.Height, rc.Width)
+	}
+
 }

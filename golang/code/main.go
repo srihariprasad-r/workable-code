@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"innerfunction/functionparms"
 	"innerfunction/datastructs"
+	"innerfunction/functionparms"
 	"innerfunction/variable"
 	"time"
 )
@@ -24,4 +24,20 @@ func main() {
 	//slice
 	fmt.Println("inside main passed by reference: ", score)
 	slice.Slicefunction([]string {"Alice","Bob","Foo"})
+
+	var nums []int
+	nums = append(nums, 1,2,3,4,5,6)
+	copiedArr := make([]int, len(nums), cap(nums))
+	copy(copiedArr, nums)
+
+	fmt.Println("before remove at index: " , nums)
+	//slice copies  & alters original array, so recapture with same variable to change both
+	newarr := slice.RemoveSlice(nums, 2)
+	fmt.Println("after remove at index in original array: " , nums)
+	fmt.Println("after remove at index in sliced array: " , newarr)
+	//use pointer
+	fmt.Println("copied array: " , copiedArr)
+	newarr1 := slice.RemoveSlicePointer(&copiedArr, 2)
+	fmt.Println("after remove at index in original array: " , copiedArr)
+	fmt.Println("after remove at index in sliced array: " , newarr1)	
 }

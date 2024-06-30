@@ -40,4 +40,12 @@ func main() {
 	newarr1 := slice.RemoveSlicePointer(&copiedArr, 2)
 	fmt.Println("after remove at index in original array: " , copiedArr)
 	fmt.Println("after remove at index in sliced array: " , newarr1)	
+
+	slice.Sliceproperty()
+	
+	// narr := []int{2, 4, 1, 3, 7}
+	// n := slice.SortArrays(narr)
+	// fmt.Println("sorted array: ", n)
+
+	slice.SortArraysByComparator()
 }

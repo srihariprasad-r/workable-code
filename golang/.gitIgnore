@@ -1,2 +1,4 @@
 *.exe
 ./variable/*.exe
+./functionparms/*.exe
+./datastrucs/*.exe

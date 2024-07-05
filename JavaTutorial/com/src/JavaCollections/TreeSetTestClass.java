@@ -1,9 +1,6 @@
 package src.JavaCollections;
 
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.NavigableSet;
-import java.util.TreeSet;
+import java.util.*;
 
 class Employee {
     String name;
@@ -40,8 +37,8 @@ class FirstComparator implements Comparator<Employee> {
 public class TreeSetTestClass {
     public static void main(String[] args) {
         TreeSet<Employee> st = new TreeSet<Employee>(new FirstComparator());
-        st.add(new Employee("Albe", 33));
-        st.add(new Employee("Albert", 32));
+        st.add(new Employee("Albe", 38));
+        st.add(new Employee("Clbe", 32));
         st.add(new Employee("Brad", 26));
 
         for (Employee s: st) {
@@ -57,6 +54,14 @@ public class TreeSetTestClass {
         }
 
         System.out.println(st.pollLast().age);
+        System.out.println("-----------");
+        SortedSet<Employee> row = st.headSet(new Employee("Dlbe", 40));
+
+        Iterator<Employee> silrow = row.iterator();
+
+        while (silrow.hasNext()) {
+            System.out.println(silrow.next().age);
+        }
 
     }
 }

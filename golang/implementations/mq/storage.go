@@ -1,8 +1,8 @@
-package storage
+package main
 
 import "fmt"
 
-type Store interface {
+type Storer interface {
 	Put([]byte) (int, error)
 	Fetch(int) ([]byte, error)
 }
@@ -10,6 +10,8 @@ type Store interface {
 type MemoryStore struct {
 	data [][]byte
 }
+
+type StoredFunc func() Storer
 
 func NewMemoryStore() *MemoryStore {
 	return &MemoryStore{

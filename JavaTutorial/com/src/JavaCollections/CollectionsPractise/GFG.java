@@ -40,5 +40,45 @@ public class GFG {
         for (Integer el: newList) {
             System.out.println(el);
         }
+
+        //convert array to ArrayList
+        int[] ac;
+        ac = new int[5];
+        ac[0] = 2;
+        ac[1] = 3;
+        ac[2] = 4;
+        ac[3] = 5;
+        ac[4] = 8;
+
+        List<Integer> al = new ArrayList<Integer>();
+        for (int el: ac){
+            al.add(el);
+        }
+
+        System.out.println(al);
+        //compare arraylist
+        int[] list1 = {1,2,3,4};
+        int[] list2 = {4,2,3,1};
+
+        List<Integer> al1 = new ArrayList<Integer>();
+        Map<Integer,Integer> mp = new HashMap<>();
+
+        for (int i =0; i < list1.length;i++){
+            al1.add(list1[i]);
+            mp.add()
+        }
+        System.out.println(al1);
+
+        List<Integer> al2 = new ArrayList<Integer>();
+
+        for (int i =0; i < list2.length;i++){
+            al2.add(list2[i]);
+        }
+        System.out.println(al2);
+
+        boolean eq = al1.equals(al2);
+
+
+        System.out.println(eq);
     }
 }

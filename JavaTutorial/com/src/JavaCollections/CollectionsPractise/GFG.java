@@ -61,24 +61,28 @@ public class GFG {
         int[] list2 = {4,2,3,1};
 
         List<Integer> al1 = new ArrayList<Integer>();
-        Map<Integer,Integer> mp = new HashMap<>();
+        Map<Integer,Integer> mp1 = new HashMap<>();
 
         for (int i =0; i < list1.length;i++){
             al1.add(list1[i]);
-            mp.add()
-        }
+            boolean key = mp1.containsKey(list1[i]);
+            if (!key) {
+                mp1.put(list1[i], 1);
+            } else {
+                int ct = mp1.get(list1[i]);
+                mp1.put(list1[i], ct + 1);
+            }
+        };
         System.out.println(al1);
-
-        List<Integer> al2 = new ArrayList<Integer>();
+        System.out.println(mp1);
 
         for (int i =0; i < list2.length;i++){
-            al2.add(list2[i]);
+            boolean key = mp1.containsKey(list2[i]);
+            if (key){
+                mp1.remove(list2[i]);
+            }
         }
-        System.out.println(al2);
 
-        boolean eq = al1.equals(al2);
-
-
-        System.out.println(eq);
+        System.out.println(mp1.size());
     }
 }

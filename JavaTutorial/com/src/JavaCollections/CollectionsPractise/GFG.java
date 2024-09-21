@@ -113,5 +113,23 @@ public class GFG {
         }
 
         System.out.println(mp1.size());
+        //find 3rd largest element
+        int[] a = {44,66,99,77,33,22,55};
+        ArrayList<Integer> alist = new ArrayList<Integer>(a.length);
+        for (int c: a){
+            alist.add(c);
+        }
+        Collections.sort(alist, new Comparator<Integer>() {
+            //@Override
+            public int compare(Integer e1, Integer e2) {
+                if (e1 > e2){
+                    return -1;
+                } else return 0;
+            }
+        });
+        int k = 3;
+        for (int i = 0;i < alist.size();i++){
+            if (i == k-1) System.out.print(alist.get(i));
+        }
     }
 }

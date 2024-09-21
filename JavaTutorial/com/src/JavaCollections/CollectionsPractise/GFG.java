@@ -2,7 +2,36 @@ package src.JavaCollections.CollectionsPractise;
 import java.util.*;
 
 public class GFG {
+    public String reverse(int idx, ArrayList<String> ar, ArrayList<String> res) {
+        if (idx < 0) {
+            return String.join(",", res);
+        }
+        res.add(ar.get(idx));
+        reverse(idx-1, ar, res);
+
+        return String.join(",", res);
+    }
     public static void main(String[] args) {
+        ArrayList<String> sal = new ArrayList<String>();
+        sal.add("One");
+        sal.add("Two");
+        sal.add("Three");
+
+        for (String c: sal) {
+            System.out.println(c);
+        }
+
+        String strs[] = new String[sal.size()];
+        for (int i = 0; i < sal.size(); i++) {
+            strs[i] = sal.get(i);
+        }
+
+        for (String s: strs) {
+            System.out.println(s);
+        }
+        ArrayList<String> res = new ArrayList<String>();
+        GFG gfg = new GFG();
+        System.out.println(gfg.reverse(sal.size()-1, sal, res));
         //[3, 5, 18, 4, 6]
         List<Integer> l = new ArrayList<Integer>();
         l.add(3);
